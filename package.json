@@ -1,0 +1,8 @@
+{
+  "name": "restaurant_group",
+  "version": "0.0.0",
+  "license": "ISC",
+  "dependencies": {
+    "json-server": "^0.7.2"
+  }
+}
