@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant Group</title>
+    <link rel="stylesheet" type="text/css" href="/bower_components/semantic-ui/dist/semantic.css">
+
+    <style>
+        li {
+            list-style-type: none;
+            display: inline;
+            padding-left: 30px;
+        }
+        ul {
+            padding-left: 0px;
+        }
+        img {
+            width: 75px;
+        }
+    </style>    
+
+</head>
+<body>
+    <main class="ui centered eight column page grid">
+
+        <!--Header-->
+        <div class="row"></div>
+        <div class="row" >
+             <img src="/img/radishesblackwhite.png">
+        </div>
+        <div class="row">
+            <h1>Restaurant Group</h1>
+        </div>
+
+        <!--Menu-->
+        <div class="centered row">
+            <div class="sixteen wide column">
+                <ul>
+                    <li data-attr="all-restaurants">All Restaurants</li>
+                    <li data-attr="chart">$ Chart</li>
+                    <li data-attr="about">About the App</li>
+                </ul>
+            </div>
+        </div>
+        <div class="ui divider"></div>
+
+        <!--Main Content Start-->
+        <div class="three column row" data-id="restaurant-row">
+
+        <!--Restaurant Card Template-->
+            <script type="text/template" data-id="restaurant-template">
+                <div class="column">
+                    <div class="ui card" data-id="restaurant">
+                        <a class="image" href="#">
+                            <img src={{image_url}}>
+                        </a>
+                        <div class="content">
+                            <a class="header" href="#">{{name}}</a>
+                        </div>
+                    </div>
+                </div>
+            </script
+
+        </div>
+
+</main>
+<script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="/bower_components/mustache/mustache.js"></script>
+<script type="text/javascript" src="/app.js"></script>
+</body>
+</html>

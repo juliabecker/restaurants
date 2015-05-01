@@ -6,6 +6,13 @@
       "location": "Chicago",
       "cuisine": "American",
       "image_url": "http://www.coupons4utah.com/wp-content/uploads/2012/06/dennys-breakfast.jpg"
+    },
+    {
+      "name": "Chez Panisse",
+      "location": "Berkeley, CA",
+      "cuisine": "New American",
+      "image_url": "http://nationaleatlocalday.com/wp-content/uploads/2013/09/Chez-Panisse-Laurels-logo-lo-res.jpg",
+      "id": 3
     }
   ],
   "items": [
@@ -17,5 +24,6 @@
       "order_count": 0,
       "image_url": "http://kleberly.com/data_images/wallpapers/7/277047-hamburger.jpg"
     }
-  ]
+  ],
+  "public": []
 }
