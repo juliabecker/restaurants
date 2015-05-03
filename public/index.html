@@ -34,8 +34,7 @@
             </div>
         </div>
         
-                    <!--Menu-->
-
+        <!--Menu-->
         <div class="menu-row">
             <div class="ui divider"></div>
                 <div class="ui text menu">
@@ -70,6 +69,7 @@
 
         <!--Add New Restaurant Button-->
         <div class="row" data-attr="button-row"></div>
+        
 
     </main>
 
@@ -90,34 +90,47 @@
     <!--Restaurant Card Template - For Restaurant Detail -->
     <script type="text/template" data-attr="restaurant-detail-template">
 
-        <div class="ui card" data-attr="restaurant" data-id="{{id}}">
-            <div class="image">
-                <img src={{image_url}}>
+        <a class="ui dimmable card" data-attr="restaurant-card" data-id="{{id}}">
+            <div class="ui dimmer">
+                <div class="content">
+                    <div class="center">
+                        <i class="large inverted pencil icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="dimmable image" data-attr="restaurant-image">      
+                <img data-attr="restaurant-image-url" src={{image_url}}>
             </div>
             <div class="content">
-                <div class="header" contenteditable="true">{{name}}</div>
-                <div class="meta" contenteditable="true">{{location}}</div>
+                <div class="header" data-attr="restaurant-name" contenteditable="true">{{name}}</div>
+                <div class="meta" data-attr="restaurant-location" contenteditable="true">{{location}}</div>
             </div>
             <div class="extra content" contenteditable="true">
-                <i class="spoon icon"></i>
-                    {{cuisine}}
+                <i class="spoon icon"></i><span data-attr="restaurant-cuisine">{{cuisine}}</span>
             </div>
-        </div>
+        </a>
 
     </script>
 
     <!--Item List Template-->
     <script type="text/template" data-id="list-template">
 
-            <div class="stackable item">
-                <div class="ui small image">
-                    <img src={{image_url}}>
-                </div>
+            <div class="stackable item" data-attr="item" data-id="{{id}}" data-restaurantid="{{restaurant_id}}">
+                <a class="ui small dimmable image" data-attr="item-image">  
+                    <div class="ui dimmer">
+                        <div class="content">
+                            <div class="center">
+                                <i class="large inverted pencil icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <img data-attr="item-image-url" src={{image_url}}>
+                </a>
                 <div class="content">
-                    <div class="header" contenteditable="true">{{name}}</div>
+                    <div class="header" data-attr="item-name" contenteditable="true">{{name}}</div>
                     <div class="meta">
-                        <p class="price">Price: <span contenteditable="true">${{price}}</span></p>
-                        <p class="stay">Order Count: <span contenteditable="true">{{order_count}}</span></p>
+                        <p class="price">Price: $<span contenteditable="true" data-attr="item-price">{{price}}</span></p>
+                        <p class="stay">Order Count: <span contenteditable="true" data-attr="item-order-count">{{order_count}}</span></p>
                     </div>
                 </div>
             </div>
@@ -155,8 +168,130 @@
 
     </script>
 
+    <!-- New Item Form Template -->
+     <script type="text/template" data-attr="item-form">
+
+        <div class="item">
+            <div class="ui form" data-attr="item-post-form" data-restaurantId="{{restaurant_id}}">
+                <div class="two fields">
+                    <div class="field">
+                      <label>Name</label>
+                      <input data-attr="item-name" type="text" placeholder="Name">
+                    </div>
+                    <div class="field">
+                      <label>Price</label>
+                      <input data-attr="item-price" type="number" placeholder="Price">
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                      <label>Order Count</label>
+                      <input data-attr="item-order-count" type="number" placeholder="Order Count">
+                    </div>
+                     <div class="field">
+                      <label>Image URL</label>
+                      <input data-attr="item-image" type="text" placeholder="http://...">
+                    </div>
+                </div>
+                <div class="ui submit button" data-action="item-post">Submit</div>
+            </div>
+        </div>
+
+    </script>
+
+    <!--Item Edit Modal-->
+    <script type="text/template" data-attr="item-edit-modal">
+
+        <div class="ui modal" data-attr="item-edit-modal" data-restaurantId="{{id}}">
+            <i class="close icon"></i>
+                <div class="header">
+                    Edit "{{name}}"
+                </div>
+                <div class="content">
+                    <div class="ui medium image">
+                        <img src="{{image_url}}">
+                    </div>
+                    <div class="description">
+                        <div class="ui form" data-attr="item-edit-form" data-id="{{restaurant_id}}">
+                <div class="two fields">
+                    <div class="field">
+                      <label>Name</label>
+                      <input data-attr="item-name" type="text" value="{{name}}">
+                    </div>
+                    <div class="field">
+                      <label>Price</label>
+                      <input data-attr="item-price" type="number" value="{{price}}">
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                      <label>Order Count</label>
+                      <input data-attr="item-order-count" type="number" value="{{order_count}}">
+                    </div>
+                     <div class="field">
+                      <label>Image URL</label>
+                      <input data-attr="item-image" type="text" value="{{image_url}}">
+                    </div>
+                </div>
+            </div>
+                    </div>
+                </div>
+                <div class="actions">
+                    <div class="ui button approve" data-attr="item-edit-submit">Submit Edits</div>
+                    <div class="ui button cancel" data-attr="item-delete">Delete Item</div>
+                </div>
+        </div>
+
+    </script>
+
+    <!-- Restaurant Edit Modal-->
+    <script type="text/template" data-attr="restaurant-edit-modal">
+
+        <div class="ui modal" data-attr="restaurant-edit-modal" data-id="{{id}}">
+            <i class="close icon"></i>
+                <div class="header">
+                    Edit "{{name}}"
+                </div>
+                <div class="content">
+                    <div class="ui medium image">
+                        <img data-attr="restaurant-image-url" src="{{image_url}}">
+                    </div>
+                    <div class="description">
+                    <div class="ui form" data-attr="restaurant-edit-form" data-id="{{id}}">
+                        <div class="two fields">
+                            <div class="field">
+                              <label>Name</label>
+                              <input data-attr="restaurant-name" type="text" value="{{name}}">
+                            </div>
+                            <div class="field">
+                              <label>Location</label>
+                              <input data-attr="restaurant-location" type="text" value="{{location}}">
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                              <label>Cuisine</label>
+                              <input data-attr="restaurant-cuisine" type="text" value="{{cuisine}}">
+                            </div>
+                             <div class="field">
+                              <label>Image URL</label>
+                              <input data-attr="restaurant-image" type="text" value="{{image_url}}">
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="actions">
+                <div class="ui button approve" data-attr="restaurant-edit-submit">Submit Edits</div>
+                <div class="ui button deny" data-attr="restaurant-delete">Delete Restaurant</div>
+            </div>
+        </div>
+
+    </script>
+
 
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="/bower_components/semantic-ui/dist/semantic.js"></script>
     <script src="https://rawgit.com/flatiron/director/master/build/director.min.js"></script>
     <script type="text/javascript" src="/bower_components/mustache/mustache.js"></script>
     <script type="text/javascript" src="/app.js"></script>

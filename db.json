@@ -5,28 +5,16 @@
       "location": "Berkeley, CA",
       "cuisine": "New American",
       "image_url": "http://nationaleatlocalday.com/wp-content/uploads/2013/09/Chez-Panisse-Laurels-logo-lo-res.jpg",
-      "id": 3
+      "id": 3,
+      "key": "Chez Panissey",
+      "objKey": "Chez Panissey"
     },
     {
       "name": "Prune",
       "location": "New York, NY",
-      "cuisine": "New American",
+      "cuisine": "\n                \n                    \n                \n                    New American",
       "image_url": "http://rachelpapers.com/wp-content/uploads/2015/01/3-hbx-prune-restaurant-logo-0212-gabrielle03-mdn-66266918.jpg",
       "id": 4
-    },
-    {
-      "name": "Boot & Shoe Service",
-      "location": "Oakland, CA",
-      "cuisine": "New American",
-      "image_url": "http://visitoakland.org/wp-content/uploads/2014/09/Restaurants-Bars_Boot-Shoe-Pizza_Photo-by-James-Knox-e1410370868847.jpg",
-      "id": 5
-    },
-    {
-      "name": "Dona Tomas",
-      "location": "Oakland, CA",
-      "cuisine": "Mexican",
-      "image_url": "http://www.donatomas.com/images/photo.jpg",
-      "id": 6
     },
     {
       "name": "Delancey",
@@ -34,13 +22,6 @@
       "cuisine": "Italian",
       "image_url": "http://delanceyseattle.com/images/titles.jpg",
       "id": 7
-    },
-    {
-      "name": "Zuni Cafe",
-      "location": "San Francisco, CA",
-      "cuisine": "New American",
-      "image_url": "http://farm1.static.flickr.com/187/462514655_48d3c61d45.jpg?v=0",
-      "id": 8
     },
     {
       "name": "Speedy Romeo",
@@ -55,21 +36,14 @@
       "cuisine": "Seafood",
       "image_url": "https://lovekalidaily.files.wordpress.com/2010/10/04diners_oyster.jpg",
       "id": 10
-    },
-    {
-      "name": "The Walrus & the Carpenter",
-      "location": "Seattle, WA",
-      "cuisine": "Seafood",
-      "image_url": "http://www.remodelista.com/files/img/sub/uimg/04-2011/walrus-carpenter-8.jpg",
-      "id": 11
     }
   ],
   "items": [
     {
       "restaurant_id": 3,
       "name": "Artichoke Nettles Pizzetta",
-      "price": 10,
-      "order_count": 0,
+      "price": 17,
+      "order_count": 15,
       "image_url": "http://slice.seriouseats.com/images/2011/11/20111108-178690-Chez-Panisse-Artichoke-Nettles-cc.JPG",
       "id": 1
     },
@@ -80,6 +54,29 @@
       "order_count": 0,
       "image_url": "http://cafefernando.com/images/plumgalette.jpg",
       "id": 2
+    },
+    {
+      "name": "Clams in Green Sauce",
+      "price": 18,
+      "order_count": 3,
+      "image_url": "http://images.budgettravel.com/restaurantschezpanissefood-8282012-181817_horiz-large.jpeg",
+      "restaurant_id": 3,
+      "id": 3
+    },
+    {
+      "name": "Arugula Salad",
+      "price": 12,
+      "order_count": 5,
+      "image_url": "http://3.bp.blogspot.com/_s--n1TR94Vs/SsfxYvaHJdI/AAAAAAAAMCY/jwJMQ4RnreU/s400/chez-panisse-arugula-salad-kalynskitchen.jpg",
+      "restaurant_id": 3,
+      "id": 4
+    },
+    {
+      "name": "jfkdlsj",
+      "price": "",
+      "order_count": "",
+      "image_url": "fjdsklj",
+      "id": 6
     }
   ],
   "public": []
