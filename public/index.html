@@ -6,16 +6,17 @@
     <link rel="stylesheet" type="text/css" href="/bower_components/semantic-ui/dist/semantic.css">
 
     <style>
-        li {
-            list-style-type: none;
-            display: inline;
-            padding-left: 30px;
-        }
-        ul {
-            padding-left: 0px;
-        }
-        img {
+        #logo {
             width: 75px;
+            margin-bottom: 20px;
+        }
+        .menu-row {
+            padding: 0px;
+            width: 100%;
+        }
+        .header {
+            margin-top: 100px;
+            margin-bottom: 50px;
         }
     </style>    
 
@@ -24,48 +25,140 @@
     <main class="ui centered eight column page grid">
 
         <!--Header-->
-        <div class="row"></div>
-        <div class="row" >
-             <img src="/img/radishesblackwhite.png">
-        </div>
-        <div class="row">
-            <h1>Restaurant Group</h1>
-        </div>
-
-        <!--Menu-->
-        <div class="centered row">
-            <div class="sixteen wide column">
-                <ul>
-                    <li data-attr="all-restaurants">All Restaurants</li>
-                    <li data-attr="chart">$ Chart</li>
-                    <li data-attr="about">About the App</li>
-                </ul>
+        <div class="header">
+            <div class="row" id="top-row">
+               <img id="logo" src="/img/radishesblackwhite.png">
+            </div>
+            <div class="row">
+                <h1>Restaurant Group</h1>
             </div>
         </div>
-        <div class="ui divider"></div>
+        
+                    <!--Menu-->
 
-        <!--Main Content Start-->
-        <div class="three column row" data-id="restaurant-row">
-
-        <!--Restaurant Card Template-->
-            <script type="text/template" data-id="restaurant-template">
-                <div class="column">
-                    <div class="ui card" data-id="restaurant">
-                        <a class="image" href="#">
-                            <img src={{image_url}}>
-                        </a>
-                        <div class="content">
-                            <a class="header" href="#">{{name}}</a>
-                        </div>
-                    </div>
+        <div class="menu-row">
+            <div class="ui divider"></div>
+                <div class="ui text menu">
+                    <a class="active item" href="/">
+        <!--                 <i class="spoon icon"></i>
+         -->                Restaurants
+                    </a>
+                    <a class="item">
+        <!--                 <i class="dollar icon"></i> 
+         -->                Chart
+                    </a>
+                    <a class="item" href="#/about">
+        <!--                 <i class="info icon"></i>
+         -->                About
+                    </a>
                 </div>
-            </script
+             <div class="ui divider"></div>
 
         </div>
 
-</main>
-<script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
-<script type="text/javascript" src="/bower_components/mustache/mustache.js"></script>
-<script type="text/javascript" src="/app.js"></script>
+        <!--All Restaurants Display-->
+        <div class="sixteen wide centered column">
+            <div class="ui four stackable cards" data-attr="restaurant-row"></div>
+        </div>
+
+        <!--Restaurant Detail Display-->
+        <div class="six wide column" data-attr="restaurant-detail"></div>
+
+        <div class="ten wide column">
+            <div class="ui items" data-attr="list-area"></div>
+        </div>
+
+        <!--Add New Restaurant Button-->
+        <div class="row" data-attr="button-row"></div>
+
+    </main>
+
+    <!--Restaurant Card Template - For All Restaurants Page-->
+    <script type="text/template" data-id="restaurant-template">
+
+        <div class="ui card" data-attr="restaurant" data-id="{{id}}">
+            <a class="image" href="#/restaurant/{{id}}">
+                <img src={{image_url}}>
+            </a>
+            <div class="content">
+                <a class="header" href="#/restaurant/{{id}}">{{name}}</a>
+            </div>
+        </div>
+
+    </script>
+
+    <!--Restaurant Card Template - For Restaurant Detail -->
+    <script type="text/template" data-attr="restaurant-detail-template">
+
+        <div class="ui card" data-attr="restaurant" data-id="{{id}}">
+            <div class="image">
+                <img src={{image_url}}>
+            </div>
+            <div class="content">
+                <div class="header" contenteditable="true">{{name}}</div>
+                <div class="meta" contenteditable="true">{{location}}</div>
+            </div>
+            <div class="extra content" contenteditable="true">
+                <i class="spoon icon"></i>
+                    {{cuisine}}
+            </div>
+        </div>
+
+    </script>
+
+    <!--Item List Template-->
+    <script type="text/template" data-id="list-template">
+
+            <div class="stackable item">
+                <div class="ui small image">
+                    <img src={{image_url}}>
+                </div>
+                <div class="content">
+                    <div class="header" contenteditable="true">{{name}}</div>
+                    <div class="meta">
+                        <p class="price">Price: <span contenteditable="true">${{price}}</span></p>
+                        <p class="stay">Order Count: <span contenteditable="true">{{order_count}}</span></p>
+                    </div>
+                </div>
+            </div>
+
+    </script>
+
+    <!--New Restaurant Form Template-->
+    <script type="text/template" data-attr="restaurant-form">
+
+        <div class="sixteen wide column">
+            <div class="ui form" data-attr="restaurant-post-form">
+                <div class="two fields">
+                    <div class="field">
+                      <label>Name</label>
+                      <input data-attr="restaurant-name" type="text" placeholder="Restaurant Name">
+                    </div>
+                    <div class="field">
+                      <label>Location</label>
+                      <input data-attr="restaurant-location" type="text" placeholder="City, State">
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                      <label>Cuisine</label>
+                      <input data-attr="restaurant-cuisine" type="text" placeholder="Cuisine">
+                    </div>
+                     <div class="field">
+                      <label>Image URL</label>
+                      <input data-attr="restaurant-image" type="text" placeholder="http://...">
+                    </div>
+                </div>
+                <div class="ui submit button" data-action="restaurant-post">Submit</div>
+            </div>
+        </div>
+
+    </script>
+
+
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="https://rawgit.com/flatiron/director/master/build/director.min.js"></script>
+    <script type="text/javascript" src="/bower_components/mustache/mustache.js"></script>
+    <script type="text/javascript" src="/app.js"></script>
 </body>
 </html>

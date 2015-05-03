@@ -1,28 +1,85 @@
 {
   "restaurants": [
     {
-      "id": 1,
-      "name": "Denny's",
-      "location": "Chicago",
-      "cuisine": "American",
-      "image_url": "http://www.coupons4utah.com/wp-content/uploads/2012/06/dennys-breakfast.jpg"
-    },
-    {
       "name": "Chez Panisse",
       "location": "Berkeley, CA",
       "cuisine": "New American",
       "image_url": "http://nationaleatlocalday.com/wp-content/uploads/2013/09/Chez-Panisse-Laurels-logo-lo-res.jpg",
       "id": 3
+    },
+    {
+      "name": "Prune",
+      "location": "New York, NY",
+      "cuisine": "New American",
+      "image_url": "http://rachelpapers.com/wp-content/uploads/2015/01/3-hbx-prune-restaurant-logo-0212-gabrielle03-mdn-66266918.jpg",
+      "id": 4
+    },
+    {
+      "name": "Boot & Shoe Service",
+      "location": "Oakland, CA",
+      "cuisine": "New American",
+      "image_url": "http://visitoakland.org/wp-content/uploads/2014/09/Restaurants-Bars_Boot-Shoe-Pizza_Photo-by-James-Knox-e1410370868847.jpg",
+      "id": 5
+    },
+    {
+      "name": "Dona Tomas",
+      "location": "Oakland, CA",
+      "cuisine": "Mexican",
+      "image_url": "http://www.donatomas.com/images/photo.jpg",
+      "id": 6
+    },
+    {
+      "name": "Delancey",
+      "location": "Seattle, WA",
+      "cuisine": "Italian",
+      "image_url": "http://delanceyseattle.com/images/titles.jpg",
+      "id": 7
+    },
+    {
+      "name": "Zuni Cafe",
+      "location": "San Francisco, CA",
+      "cuisine": "New American",
+      "image_url": "http://farm1.static.flickr.com/187/462514655_48d3c61d45.jpg?v=0",
+      "id": 8
+    },
+    {
+      "name": "Speedy Romeo",
+      "location": "Brooklyn, NY",
+      "cuisine": "Italian",
+      "image_url": "http://www.speedyromeo.com/jville.jpeg",
+      "id": 9
+    },
+    {
+      "name": "Grand Central Oyster Bar",
+      "location": "New York, NY",
+      "cuisine": "Seafood",
+      "image_url": "https://lovekalidaily.files.wordpress.com/2010/10/04diners_oyster.jpg",
+      "id": 10
+    },
+    {
+      "name": "The Walrus & the Carpenter",
+      "location": "Seattle, WA",
+      "cuisine": "Seafood",
+      "image_url": "http://www.remodelista.com/files/img/sub/uimg/04-2011/walrus-carpenter-8.jpg",
+      "id": 11
     }
   ],
   "items": [
     {
-      "id": 1,
-      "restaurantId": 1,
-      "name": "hamburger",
+      "restaurant_id": 3,
+      "name": "Artichoke Nettles Pizzetta",
       "price": 10,
       "order_count": 0,
-      "image_url": "http://kleberly.com/data_images/wallpapers/7/277047-hamburger.jpg"
+      "image_url": "http://slice.seriouseats.com/images/2011/11/20111108-178690-Chez-Panisse-Artichoke-Nettles-cc.JPG",
+      "id": 1
+    },
+    {
+      "restaurant_id": 3,
+      "name": "Plum Galette",
+      "price": 14,
+      "order_count": 0,
+      "image_url": "http://cafefernando.com/images/plumgalette.jpg",
+      "id": 2
     }
   ],
   "public": []
