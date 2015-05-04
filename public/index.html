@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Restaurant Group</title>
+    <title>Radish Restaurants</title>
     <link rel="stylesheet" type="text/css" href="/bower_components/semantic-ui/dist/semantic.css">
-    <link href='http://fonts.googleapis.com/css?family=Poiret+One|Josefin+Slab|Amatic+SC|Raleway:400,100,200,300,500' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.6/animate.min.css">
 
     <style>
@@ -34,85 +34,90 @@
         body {
             font-family: 'Raleway', sans-serif;
         }
+        .ui.divider {
+            margin: 2rem 0rem;
+        }
     </style>    
 
 </head>
 <body>
-    <main class="ui centered eight column page grid">
+    <main class="ui centered page grid">
 
         <!--Header-->
         <div class="header animated fadeInDownBig">
             <div class="row" id="top-row">
-               <a href="/"><img id="logo" src="/img/radishesblackwhite.png"></a>
-            </div>
-            <div class="row">
-                <h1><a href="/">Radish Restaurants</a></h1>
-            </div>
+             <a href="/"><img id="logo" src="/img/radishesblackwhite.png"></a>
+         </div>
+         <div class="row">
+            <h1><a href="/">Radish Restaurants</a></h1>
         </div>
-        
-        <!--Menu-->
-        <div class="menu-row">
-                <div class="ui text menu">
-                    <a class="item animated fadeIn" id="restaurants-menu-item" href="/">
-                        Restaurants
-                    </a>
-                    <a class="item animated fadeIn" id="chart-menu-item" href="#/chart">
-                         $ Chart
-                    </a>
-                    <a class="item animated fadeIn" id="about-menu-item" href="#/about">
-                       About
-                    </a>
-                </div>
-             <div class="ui divider"></div>
+    </div>
 
+    <!--Menu-->
+    <div class="menu-row">
+        <div class="ui text menu">
+            <a class="item animated fadeIn" id="restaurants-menu-item" href="/">
+                Restaurants
+            </a>
+            <a class="item animated fadeIn" id="chart-menu-item" href="#/chart">
+               $ Chart
+            </a>
+            <a class="item animated fadeIn" id="about-menu-item" href="#/about">
+             About
+            </a>
         </div>
+        <div class="ui divider"></div>
+    </div>
 
-        <!--All Restaurants Display-->
-        <div class="sixteen wide centered column">
-            <div class="ui four stackable cards" data-attr="restaurant-row"></div>
-        </div>
-    
-        <!--Restaurant Detail Display-->
-        <div class="six wide column" data-attr="restaurant-detail"></div>
+<!--All Content Container-->
+<div id="main-content" class="ui centered grid"></div>
 
-        <div class="ten wide column">
-            <div class="ui items" data-attr="list-area"></div>
-        </div>
+<footer></footer>
 
-        <!--Add New Restaurant Button-->
-        <div class="row" data-attr="button-row"></div>
 
-        <!--About Page Row-->
-        <div class="sixteen wide column" data-attr="about-area"></div>
-        
-        
+</main>
 
-    </main>
+<!--All Restaurants Container-->
+<script type="text/template" data-attr="all-restaurants-container">
+    <div class="sixteen wide column">
+    <div class="ui four stackable cards" data-attr="restaurant-row"></div>
+    </div>
+</script>
 
-    <!--Restaurant Card Template - For All Restaurants Page-->
-    <script type="text/template" data-id="restaurant-template">
+<!--Restaurant Card Template - For All Restaurants Page-->
+<script type="text/template" data-id="restaurant-template">
 
-        <a class="ui dimmable card animated fadeIn" data-attr="restaurant" data-id="{{id}}" href="#/restaurant/{{id}}">
-            <div class="ui dimmer">
-                <div class="content">
-                    <div class="center">
-                        <div class="ui inverted button">See Menu</div>
-                    </div>
-                </div>
-            </div>
-            <div class="image" >
-                <img src={{image_url}}>
-            </div>
+    <a class="ui dimmable card animated fadeIn" data-attr="restaurant" data-id="{{id}}" href="#/restaurant/{{id}}">
+        <div class="ui dimmer">
             <div class="content">
-                <div class="header">{{name}}</div>
+                <div class="center">
+                    <div class="ui inverted button">See Menu</div>
+                </div>
             </div>
-        </a>
+        </div>
+        <div class="image" >
+            <img src={{image_url}}>
+        </div>
+        <div class="content">
+            <div class="header">{{name}}</div>
+        </div>
+    </a>
 
-    </script>
+</script>
 
-    <!--Restaurant Card Template - For Restaurant Detail -->
-    <script type="text/template" data-attr="restaurant-detail-template">
+<!--Restaurant Detail List Items Container-->
+<script type="text/template" data-attr="item-list-container">
 
+    <div class="ten wide column">
+        <div class="ui items" data-attr="list-area"></div>
+    </div>
+
+</script>
+
+<!--Restaurant Card Template - For Restaurant Detail -->
+<script type="text/template" data-attr="restaurant-detail-template">
+
+    <div class="six wide column" data-attr="restaurant-detail">
         <a class="ui dimmable animated fadeIn card" data-attr="restaurant-card" data-id="{{id}}">
             <div class="ui dimmer">
                 <div class="content">
@@ -125,215 +130,224 @@
                 <img data-attr="restaurant-image-url" src={{image_url}}>
             </div>
             <div class="content">
-                <div class="header" data-attr="restaurant-name" contenteditable="true">{{name}}</div>
-                <div class="meta" data-attr="restaurant-location" contenteditable="true">{{location}}</div>
+                <div class="header" data-attr="restaurant-name">{{name}}</div>
+                <div class="meta" data-attr="restaurant-location">{{location}}</div>
             </div>
-            <div class="extra content" contenteditable="true">
+            <div class="extra content">
                 <i class="spoon icon"></i><span data-attr="restaurant-cuisine">{{cuisine}}</span>
             </div>
         </a>
+    </div>
 
-    </script>
+</script>
 
-    <!--Item List Template-->
-    <script type="text/template" data-id="list-template">
+<!--Item List Template-->
+<script type="text/template" data-id="list-template">
 
-            <div class="stackable draggable animated fadeIn item" data-attr="item" data-id="{{id}}" data-restaurantid="{{restaurant_id}}">
-                <a class="ui small dimmable image" data-attr="item-list-image">  
-                    <div class="ui dimmer">
-                        <div class="content">
-                            <div class="center">
-                                <i class="large inverted pencil icon"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <img data-attr="item-image-url" src={{image_url}}>
-                </a>
+    <div class="stackable draggable animated fadeIn item" data-attr="item" data-id="{{id}}" data-restaurantid="{{restaurant_id}}">
+        <a class="ui small dimmable image" data-attr="item-list-image">  
+            <div class="ui dimmer">
                 <div class="content">
-                    <div class="header" data-attr="item-name" contenteditable="true">{{name}}</div>
-                    <div class="meta">
-                        <p class="price">Price: $<span contenteditable="true" data-attr="item-price">{{price}}</span></p>
-                        <p class="stay">Order Count: <span contenteditable="true" data-attr="item-order-count">{{order_count}}</span></p>
+                    <div class="center">
+                        <i class="large inverted pencil icon"></i>
                     </div>
                 </div>
             </div>
-
-    </script>
-
-    <!--New Restaurant Form Template-->
-    <script type="text/template" data-attr="restaurant-form">
-
-        <div class="sixteen wide column" data-attr="restaurant-form">
-            <div class="ui form" data-attr="restaurant-post-form">
-                <div class="two fields">
-                    <div class="field">
-                      <label>Name</label>
-                      <input data-attr="restaurant-name" type="text" placeholder="Restaurant Name">
-                    </div>
-                    <div class="field">
-                      <label>Location</label>
-                      <input data-attr="restaurant-location" type="text" placeholder="City, State">
-                    </div>
-                </div>
-                <div class="two fields">
-                    <div class="field">
-                      <label>Cuisine</label>
-                      <input data-attr="restaurant-cuisine" type="text" placeholder="Cuisine">
-                    </div>
-                     <div class="field">
-                      <label>Image URL</label>
-                      <input data-attr="restaurant-image" type="text" placeholder="http://...">
-                    </div>
-                </div>
-                <div class="ui submit button" data-action="restaurant-post">Submit</div>
+            <img data-attr="item-image-url" src={{image_url}}>
+        </a>
+        <div class="content">
+            <div class="header" data-attr="item-name" >{{name}}</div>
+            <div class="meta">
+                <p class="price">Price: $<span data-attr="item-price">{{price}}</span></p>
+                <p class="stay">Order Count: <span data-attr="item-order-count">{{order_count}}</span></p>
             </div>
         </div>
+    </div>
 
-    </script>
+</script>
 
-    <!-- New Item Form Template -->
-     <script type="text/template" data-attr="item-form">
+<!--New Restaurant Form Template-->
+<script type="text/template" data-attr="restaurant-form">
 
-        <div class="item">
-            <div class="ui form" data-attr="item-post-form" data-restaurantId="{{restaurant_id}}">
-                <div class="two fields">
-                    <div class="field">
-                      <label>Name</label>
-                      <input data-attr="item-name" type="text" placeholder="Name">
-                    </div>
-                    <div class="field">
-                      <label>Price</label>
-                      <input data-attr="item-price" type="number" placeholder="Price">
-                    </div>
-                </div>
-                <div class="two fields">
-                    <div class="field">
-                      <label>Order Count</label>
-                      <input data-attr="item-order-count" type="number" placeholder="Order Count">
-                    </div>
-                     <div class="field">
-                      <label>Image URL</label>
-                      <input data-attr="item-image" type="text" placeholder="http://...">
-                    </div>
-                </div>
-                <div class="ui submit button" data-action="item-post">Submit</div>
-            </div>
+    <div class="sixteen wide column" data-attr="restaurant-form">
+        <div class="ui form" data-attr="restaurant-post-form">
+            <div class="two fields">
+                <div class="field">
+                  <label>Name</label>
+                  <input data-attr="restaurant-name" type="text" placeholder="Restaurant Name">
+              </div>
+              <div class="field">
+                  <label>Location</label>
+                  <input data-attr="restaurant-location" type="text" placeholder="City, State">
+              </div>
+          </div>
+          <div class="two fields">
+            <div class="field">
+              <label>Cuisine</label>
+              <input data-attr="restaurant-cuisine" type="text" placeholder="Cuisine">
+          </div>
+          <div class="field">
+              <label>Image URL</label>
+              <input data-attr="restaurant-image" type="text" placeholder="http://...">
+          </div>
+      </div>
+      <div class="ui submit button" data-action="restaurant-post">Submit</div>
+  </div>
+</div>
+
+</script>
+
+<!-- New Item Form Template -->
+<script type="text/template" data-attr="item-form">
+
+    <div class="item">
+        <div class="ui form" data-attr="item-post-form" data-restaurantId="{{restaurant_id}}">
+            <div class="two fields">
+                <div class="field">
+                  <label>Name</label>
+                  <input data-attr="item-name" type="text" placeholder="Name">
+              </div>
+              <div class="field">
+                  <label>Price</label>
+                  <input data-attr="item-price" type="number" placeholder="Price">
+              </div>
+          </div>
+          <div class="two fields">
+            <div class="field">
+              <label>Order Count</label>
+              <input data-attr="item-order-count" type="number" placeholder="Order Count">
+          </div>
+          <div class="field">
+              <label>Image URL</label>
+              <input data-attr="item-image" type="text" placeholder="http://...">
+          </div>
+      </div>
+      <div class="ui submit button" data-action="item-post">Submit</div>
+  </div>
+</div>
+
+</script>
+
+<!--Item Edit Modal-->
+<script type="text/template" data-attr="item-edit-modal">
+
+    <div class="ui modal" data-attr="item-edit-modal" data-id="{{id}}" data-restaurantId="{{id}}">
+        <i class="close icon"></i>
+        <div class="header">
+            Edit "{{name}}"
         </div>
-
-    </script>
-
-    <!--Item Edit Modal-->
-    <script type="text/template" data-attr="item-edit-modal">
-
-        <div class="ui modal" data-attr="item-edit-modal" data-id="{{id}}" data-restaurantId="{{id}}">
-            <i class="close icon"></i>
-                <div class="header">
-                    Edit "{{name}}"
-                </div>
-                <div class="content">
-                    <div class="ui medium image">
-                        <img src="{{image_url}}">
-                    </div>
-                    <div class="description">
-                        <div class="ui form" data-attr="item-edit-form" >
-                <div class="two fields">
-                    <div class="field">
-                      <label>Name</label>
-                      <input data-attr="item-name" type="text" value="{{name}}">
-                    </div>
-                    <div class="field">
-                      <label>Price</label>
-                      <input data-attr="item-price" type="number" value="{{price}}">
-                    </div>
-                </div>
-                <div class="two fields">
+        <div class="content">
+            <div class="ui medium image">
+                <img src="{{image_url}}">
+            </div>
+            <div class="description">
+                <div class="ui form" data-attr="item-edit-form" >
+                    <div class="two fields">
+                        <div class="field">
+                          <label>Name</label>
+                          <input data-attr="item-name" type="text" value="{{name}}">
+                      </div>
+                      <div class="field">
+                          <label>Price</label>
+                          <input data-attr="item-price" type="number" value="{{price}}">
+                      </div>
+                  </div>
+                  <div class="two fields">
                     <div class="field">
                       <label>Order Count</label>
                       <input data-attr="item-order-count" type="number" value="{{order_count}}">
-                    </div>
-                     <div class="field">
+                  </div>
+                  <div class="field">
                       <label>Image URL</label>
                       <input data-attr="item-image" type="text" value="{{image_url}}">
-                    </div>
-                </div>
-            </div>
-                    </div>
-                </div>
-                <div class="actions">
-                    <div class="ui primary button approve" data-attr="item-edit-submit">Submit Edits</div>
-                    <div class="ui button cancel" data-attr="item-delete">Delete Item</div>
-                </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="actions">
+    <div class="ui primary button approve" data-attr="item-edit-submit">Submit Edits</div>
+    <div class="ui button cancel" data-attr="item-delete">Delete Item</div>
+</div>
+</div>
+
+</script>
+
+<!-- Restaurant Edit Modal-->
+<script type="text/template" data-attr="restaurant-edit-modal">
+
+    <div class="ui modal" data-attr="restaurant-edit-modal" data-id="{{id}}">
+        <i class="close icon"></i>
+        <div class="header">
+            Edit "{{name}}"
         </div>
-
-    </script>
-
-    <!-- Restaurant Edit Modal-->
-    <script type="text/template" data-attr="restaurant-edit-modal">
-
-        <div class="ui modal" data-attr="restaurant-edit-modal" data-id="{{id}}">
-            <i class="close icon"></i>
-                <div class="header">
-                    Edit "{{name}}"
-                </div>
-                <div class="content">
-                    <div class="ui medium image">
-                        <img data-attr="restaurant-image-url" src="{{image_url}}">
-                    </div>
-                    <div class="description">
-                    <div class="ui form" data-attr="restaurant-edit-form" data-id="{{id}}">
-                        <div class="two fields">
-                            <div class="field">
-                              <label>Name</label>
-                              <input data-attr="restaurant-name" type="text" value="{{name}}">
-                            </div>
-                            <div class="field">
-                              <label>Location</label>
-                              <input data-attr="restaurant-location" type="text" value="{{location}}">
-                            </div>
-                        </div>
-                        <div class="two fields">
-                            <div class="field">
-                              <label>Cuisine</label>
-                              <input data-attr="restaurant-cuisine" type="text" value="{{cuisine}}">
-                            </div>
-                             <div class="field">
-                              <label>Image URL</label>
-                              <input data-attr="restaurant-image" type="text" value="{{image_url}}">
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            <div class="actions">
-                <div class="ui primary button approve" data-attr="restaurant-edit-submit">Submit Edits</div>
-                <div class="ui button deny" data-attr="restaurant-delete">Delete Restaurant</div>
+        <div class="content">
+            <div class="ui medium image">
+                <img data-attr="restaurant-image-url" src="{{image_url}}">
             </div>
-        </div>
+            <div class="description">
+                <div class="ui form" data-attr="restaurant-edit-form" data-id="{{id}}">
+                    <div class="two fields">
+                        <div class="field">
+                          <label>Name</label>
+                          <input data-attr="restaurant-name" type="text" value="{{name}}">
+                      </div>
+                      <div class="field">
+                          <label>Location</label>
+                          <input data-attr="restaurant-location" type="text" value="{{location}}">
+                      </div>
+                  </div>
+                  <div class="two fields">
+                    <div class="field">
+                      <label>Cuisine</label>
+                      <input data-attr="restaurant-cuisine" type="text" value="{{cuisine}}">
+                  </div>
+                  <div class="field">
+                      <label>Image URL</label>
+                      <input data-attr="restaurant-image" type="text" value="{{image_url}}">
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="actions">
+    <div class="ui primary button approve" data-attr="restaurant-edit-submit">Submit Edits</div>
+    <div class="ui button deny" data-attr="restaurant-delete">Delete Restaurant</div>
+</div>
+</div>
 
-    </script>
+</script>
 
-    <script type="text/template" data-attr="about-text">
+<script type="text/template" data-attr="about-text">
 
-         <h2>About Julia</h2>
+<div class="sixteen wide column">
+   <h2>About Julia</h2>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis voluptatum sit, dicta, sunt illum unde? Aspernatur nesciunt sapiente eos illum atque fuga quas facere commodi perspiciatis explicabo inventore, dicta fugiat?</p>
+   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis voluptatum sit, dicta, sunt illum unde? Aspernatur nesciunt sapiente eos illum atque fuga quas facere commodi perspiciatis explicabo inventore, dicta fugiat?</p>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore obcaecati quisquam cupiditate eligendi repellat tenetur delectus minima ipsa et nihil impedit ratione libero, soluta vel distinctio unde a ab illum.</p>
+   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore obcaecati quisquam cupiditate eligendi repellat tenetur delectus minima ipsa et nihil impedit ratione libero, soluta vel distinctio unde a ab illum.</p>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut voluptatibus exercitationem non tenetur quidem labore odit inventore commodi necessitatibus, maxime atque voluptatem quo hic provident odio dolorem doloribus. Consectetur, explicabo!</p>
+   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut voluptatibus exercitationem non tenetur quidem labore odit inventore commodi necessitatibus, maxime atque voluptatem quo hic provident odio dolorem doloribus. Consectetur, explicabo!</p>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas aperiam molestiae minima accusantium quibusdam dignissimos iusto ad voluptate expedita cum consequatur, quasi adipisci tempora! Sint officiis non est ipsa ut!</p>
+   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas aperiam molestiae minima accusantium quibusdam dignissimos iusto ad voluptate expedita cum consequatur, quasi adipisci tempora! Sint officiis non est ipsa ut!</p>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas aperiam molestiae minima accusantium quibusdam dignissimos iusto ad voluptate expedita cum consequatur, quasi adipisci tempora! Sint officiis non est ipsa ut!</p>
+   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas aperiam molestiae minima accusantium quibusdam dignissimos iusto ad voluptate expedita cum consequatur, quasi adipisci tempora! Sint officiis non est ipsa ut!</p>
+   </div>
+</script>
 
-    </script>
+<script type="text/template" data-attr="chart-template">
+    <div class="sixteen wide column ">
+        <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+</script>
 
 
-    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="/bower_components/semantic-ui/dist/semantic.js"></script>
-    <script src="https://rawgit.com/flatiron/director/master/build/director.min.js"></script>
-    <script type="text/javascript" src="/bower_components/mustache/mustache.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/draggabilly/1.2.0/draggabilly.pkgd.min.js"></script>
-    <script type="text/javascript" src="/app.js"></script>
+<script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="/bower_components/semantic-ui/dist/semantic.js"></script>
+<script src="https://rawgit.com/flatiron/director/master/build/director.min.js"></script>
+<script type="text/javascript" src="/bower_components/mustache/mustache.js"></script>
+<script type="text/javascript" src="/bower_components/Chart.js/Chart.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/draggabilly/1.2.0/draggabilly.pkgd.min.js"></script>
+<script type="text/javascript" src="/app.js"></script>
 </body>
 </html>

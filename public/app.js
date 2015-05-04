@@ -9,37 +9,40 @@ var listTemplate = $('script[data-id="list-template"]').text();
 var itemEditTemplate = $('script[data-attr="item-edit-modal"]').text();
 var restaurantEditTemplate = $('script[data-attr="restaurant-edit-modal"]').text();
 var aboutTemplate = $('script[data-attr="about-text"]').text();
+var chartTemplate = $('script[data-attr="chart-template"]').text();
+
+var restContainer = $('script[data-attr="all-restaurants-container"]').text();
+var itemListContainer = $('script[data-attr="item-list-container"]').text();
 
 // Set Up Routes
 var routes = {
     "/": showRestaurants,
     "/restaurant/:restaurant_id": showRestaurant,
+    "/chart": showChart,
     "/about": showAbout
 }
 
-// Event Listeners
 
-// Add New Restaurant Button
+// Event Listeners
+// Add New Restaurant Button Clicked - Display Form
 $('main').on('click', '[data-action="add-restaurant"]', function(e) {
-    $('main').append(restFormTemplate);
-    $('body').animate({scrollTop:$('div[data-attr="button-row"]').offset().top},500)
+    $('#main-content').append(restFormTemplate);
+    $('body').animate({scrollTop:$('footer').offset().top},500)
     $('input[data-attr="restaurant-name"]').focus();
 });
 
-// Add New Item Button
+// Add New Item Button Click - Display Form
 $('main').on('click', '[data-action="add-item"]', function(e) {
     // Display Form with Restaurant ID
     var id = $(this).data("id");
     $('div[data-attr="list-area"]').append(Mustache.render(itemFormTemplate, {
         "restaurant_id": id
     }));
-    $('body').animate({scrollTop:$('div[data-attr="list-area"]').offset().top},500)
+    $('body').animate({scrollTop:$('footer').offset().top},500)
     $('input[data-attr="item-name"]').focus();
-
-
 });
 
-// Submit New Restaurant
+// Submit New Restaurant Button Cilcked
 $('main').on('click', '[data-action="restaurant-post"]', function(e) {
     var $form = $(this).parents('div[data-attr="restaurant-post-form"]');
     var nameInput = $form.find('[data-attr="restaurant-name"]').val();
@@ -59,7 +62,7 @@ $('main').on('click', '[data-action="restaurant-post"]', function(e) {
 
 });
 
-// Submit New Item
+// Submit New Item Button Clicked
 $('main').on('click', '[data-action="item-post"]', function(e) {
     var $form = $(this).parents('div[data-attr="item-post-form"]');
     var nameInput = $form.find('[data-attr="item-name"]').val();
@@ -162,124 +165,10 @@ $('main').on('click', '[data-attr="restaurant-card"]', function(e) {
 
 });
 
-// Restaurant Name Update
-// $('main').on('blur', '[data-attr="restaurant-name"]', function(e) {
-//     var restaurantName = $(this).text();
-//     var id = ($(this).parents('div[data-attr="restaurant"]')).data("id");
-
-//     $.ajax({
-//         url: "/restaurants/" + id,
-//         method: "PATCH",
-//         data: {
-//             name: restaurantName
-//         }
-//     }).done(function(data) {
-//         console.log('restaurant updated')
-//     });
-//     // patchUpdate(e, "restaurant", "name");
-// });
-
-// // Restaurant Location Update
-// $('main').on('blur', '[data-attr="restaurant-location"]', function(e) {
-//     var restaurantLocation = $(this).text();
-//     var id = ($(this).parents('div[data-attr="restaurant"]')).data("id");
-
-//     $.ajax({
-//         url: "/restaurants/" + id,
-//         method: "PATCH",
-//         data: {
-//             location: restaurantLocation
-//         }
-//     }).done(function(data) {
-//         console.log('restaurant updated')
-//     });
-// });
-
-// // Restaurant Cuisine Update
-// $('main').on('blur', '[data-attr="restaurant-cuisine"]', function(e) {
-//     var restaurantCuisine = $(this).text();
-//     var id = ($(this).parents('div[data-attr="restaurant"]')).data("id");
-
-//     $.ajax({
-//         url: "/restaurants/" + id,
-//         method: "PATCH",
-//         data: {
-//             cuisine: restaurantCuisine
-//         }
-//     }).done(function(data) {
-//         console.log('restaurant updated')
-//     });
-// });
-
-// // Item Name Update
-// $('main').on('blur', '[data-attr="item-name"]', function(e) {
-//     var itemName = $(this).text();
-//     var id = ($(this).parents('div[data-attr="item"]')).data("id");
-
-//     $.ajax({
-//         url: "/items/" + id,
-//         method: "PATCH",
-//         data: {
-//             name: itemName
-//         }
-//     }).done(function(data) {
-//         console.log('item updated')
-//     });
-// });
-
-// // Item Price Update
-// $('main').on('blur', '[data-attr="item-price"]', function(e) {
-//     var itemPrice = $(this).text();
-//     var id = ($(this).parents('div[data-attr="item"]')).data("id");
-
-//     $.ajax({
-//         url: "/items/" + id,
-//         method: "PATCH",
-//         data: {
-//             price: itemPrice
-//         }
-//     }).done(function(data) {
-//         console.log('item updated')
-//     });
-//     // patchUpdate(e, "item", "price")
-// });
-
-// // Item Order Count Update
-// $('main').on('blur', '[data-attr="item-order-count"]', function(e) {
-//     var itemCount = $(this).text();
-//     var id = ($(this).parents('div[data-attr="item"]')).data("id");
-
-//     $.ajax({
-//         url: "/items/" + id,
-//         method: "PATCH",
-//         data: {
-//             order_count: itemCount
-//         }
-//     }).done(function(data) {
-//         console.log('item updated')
-//     });
-//     // patchUpdate(e, "item", "price")
-// });
-
-// function patchUpdate(e, resource, key) {
-//     var updatedValue = $(e.target).text();
-//     var id = $(e.target).parents("div[data-attr='" + resource + "']").data("id");
-//     var objKey = key.toString();
-//     var dataObj = {objKey: updatedValue};
-//     var url = "/" + resource + "s/" + id;
-
-//     $.ajax({
-//         url: url,
-//         method: "PATCH",
-//         data: dataObj
-//     }).done(function(data) {
-//         console.log("patch updated!")
-//     });
-// }
-
 function showRestaurants() {
     setMenuActiveState("restaurants");
-    emptyMain();
+    $('#main-content').empty();
+
 
     $.ajax({
         method: "GET",
@@ -288,10 +177,11 @@ function showRestaurants() {
         var restaurantEls = restaurants.map(function(restaurant) {
             return Mustache.render(restTemplate, restaurant);
         })
-        var $button = $("<button data-action='add-restaurant' type='submit' class='ui button'>Add New Restaurant</button>");
+        var $button = $("<div class='centered row'><button data-action='add-restaurant' type='submit' class='ui button'>Add New Restaurant</button></div>");
 
+        $('#main-content').append($(restContainer));
         $('div[data-attr="restaurant-row"]').append(restaurantEls);
-        $('div[data-attr="button-row"]').append($button);
+        $('#main-content').append($button);
 
         $('.ui.card').dimmer({
             on: 'hover'
@@ -299,11 +189,75 @@ function showRestaurants() {
     });
 }
 
+function showChart() {
+setMenuActiveState("chart");
+$('#main-content').empty();
+    // Testing Chart
+// Get context with jQuery - using jQuery's .get() method.
+$('#main-content').append(chartTemplate);
+var ctx = $("#myChart").get(0).getContext("2d");
+// This will get the first returned node in the jQuery collection.
+// var myNewChart = new Chart(ctx);
+
+var data = [
+    {
+        value: 300,
+        color:"#F7464A",
+        highlight: "#FF5A5E",
+        label: "Red"
+    },
+    {
+        value: 50,
+        color: "#46BFBD",
+        highlight: "#5AD3D1",
+        label: "Green"
+    },
+    {
+        value: 100,
+        color: "#FDB45C",
+        highlight: "#FFC870",
+        label: "Yellow"
+    }
+]
+
+var options = {
+    //Boolean - Whether we should show a stroke on each segment
+    segmentShowStroke : true,
+
+    //String - The colour of each segment stroke
+    segmentStrokeColor : "#fff",
+
+    //Number - The width of each segment stroke
+    segmentStrokeWidth : 2,
+
+    //Number - The percentage of the chart that we cut out of the middle
+    percentageInnerCutout : 50, // This is 0 for Pie charts
+
+    //Number - Amount of animation steps
+    animationSteps : 100,
+
+    //String - Animation easing effect
+    animationEasing : "easeOutBounce",
+
+    //Boolean - Whether we animate the rotation of the Doughnut
+    animateRotate : true,
+
+    //Boolean - Whether we animate scaling the Doughnut from the centre
+    animateScale : false,
+
+    //String - A legend template
+    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+
+}
+var myPieChart = new Chart(ctx).Pie(data, options);
+
+}
+
 
 function showAbout() {
     setMenuActiveState("about");
-    emptyMain();
-    $('div[data-attr="about-area"').append(aboutTemplate);
+    $('#main-content').empty();
+    $('#main-content').append(aboutTemplate);
 
 }
 
@@ -353,19 +307,24 @@ function putRestaurant(formObj) {
 
 function showRestaurant(restaurant_id) {
     setMenuActiveState("restaurants");
-    emptyMain();
+    $('#main-content').empty();
+
+    var $restaurantHtml;
 
     // GET & Display Restaurant Data
     $.ajax({
         url: "/restaurants/" + restaurant_id,
         method: "GET"
     }).done(function(restaurant) {
-        $('div[data-attr="restaurant-detail"]').append(Mustache.render(restDetailTemplate, restaurant));
+        $('#main-content').append(Mustache.render(restDetailTemplate, restaurant));
+        // $('div[data-attr="restaurant-detail"]').append(Mustache.render(restDetailTemplate, restaurant));
+
+        // $restaurantHtml = Mustache.render(restDetailTemplate, restaurant);
 
         $('.ui.card').dimmer({
             on: 'hover'
         });
-    });
+    
 
     // GET & Display Restaurant Item Data
     $.ajax({
@@ -376,6 +335,12 @@ function showRestaurant(restaurant_id) {
             return Mustache.render(listTemplate, item);
         });
         var $button = $("<div class='item'><button data-action='add-item' data-id='" + restaurant_id + "' type='submit' class='ui button'>Add Item</button></div>");
+
+        // $(itemListContainer).append(itemEls);
+
+
+        $('#main-content').append($(itemListContainer));
+
 
         $('div[data-attr="list-area"]').append(itemEls);
         $('div[data-attr="list-area"]').append($button);
@@ -388,6 +353,7 @@ function showRestaurant(restaurant_id) {
             axis: 'y',
             containment: $('div[data-attr="list-area"]'),
         })
+    });
 
     });
 
@@ -432,15 +398,6 @@ function deleteItem(id) {
     }).done(function() {
         console.log("item deleted");
     });
-}
-
-function emptyMain() {
-    $('div[data-attr="restaurant-row"]').empty();
-    $('div[data-attr="restaurant-detail"]').empty();
-    $('div[data-attr="button-row"]').empty();
-    $('div[data-attr="list-area"]').empty();
-    $('div[data-attr="restaurant-form"]').empty();
-    $('div[data-attr="about-area"]').empty();
 }
 
 function setMenuActiveState(section) {
