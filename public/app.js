@@ -8,6 +8,7 @@ var itemFormTemplate = $('script[data-attr="item-form"]').text();
 var listTemplate = $('script[data-id="list-template"]').text();
 var itemEditTemplate = $('script[data-attr="item-edit-modal"]').text();
 var restaurantEditTemplate = $('script[data-attr="restaurant-edit-modal"]').text();
+var aboutTemplate = $('script[data-attr="about-text"]').text();
 
 // Set Up Routes
 var routes = {
@@ -25,8 +26,7 @@ $('main').on('click', '[data-action="add-restaurant"]', function(e) {
 
 // Add New Item Button
 $('main').on('click', '[data-action="add-item"]', function(e) {
-
-    // Attach restaurant_id to form & display
+    // Display Form with Restaurant ID
     var id = $(this).data("id");
     $('div[data-attr="list-area"]').append(Mustache.render(itemFormTemplate, {
         "restaurant_id": id
@@ -272,6 +272,7 @@ $('main').on('click', '[data-attr="restaurant-card"]', function(e) {
 // }
 
 function showRestaurants() {
+    setMenuActiveState("restaurants");
     emptyMain();
 
     $.ajax({
@@ -285,11 +286,18 @@ function showRestaurants() {
 
         $('div[data-attr="restaurant-row"]').append(restaurantEls);
         $('div[data-attr="button-row"]').append($button);
+
+        $('.ui.card').dimmer({
+            on: 'hover'
+        });
     });
 }
 
 
 function showAbout() {
+    setMenuActiveState("about");
+    emptyMain();
+    $('div[data-attr="about-area"').append(aboutTemplate);
 
 }
 
@@ -318,7 +326,7 @@ function putRestaurant(formObj) {
     var name = formObj.find('[data-attr="restaurant-name"]').val();
     var location = formObj.find('[data-attr="restaurant-location"]').val();
     var cuisine = formObj.find('[data-attr="restaurant-cuisine"]').val();
-    var image = formObj.find('[data-attr="restaurant-image-url"]').attr("src");
+    var image = formObj.find('[data-attr="restaurant-image"]').val();
 
     var restaurantObj = {
         id: id,
@@ -338,7 +346,7 @@ function putRestaurant(formObj) {
 }
 
 function showRestaurant(restaurant_id) {
-
+    setMenuActiveState("restaurants");
     emptyMain();
 
     // GET & Display Restaurant Data
@@ -370,8 +378,35 @@ function showRestaurant(restaurant_id) {
             on: 'hover'
         });
 
+        var $draggable = $('.draggable').draggabilly({
+            axis: 'y',
+            containment: $('div[data-attr="list-area"]'),
+        })
+
     });
 
+}
+
+function putItem(formObj) {
+    var id = formObj.data("id");
+    var name = formObj.find('[data-attr="item-name"]').val();
+    var price = formObj.find('[data-attr="item-price"]').val();
+    var order_count = formObj.find('[data-attr="item-order-count"]').val();
+    var image = formObj.find('[data-attr="item-image"]').val();
+
+    var itemObj = {
+        name: name,
+        price: price,
+        order_count: order_count,
+        image_url: image
+    }
+    $.ajax({
+        url: "/items/" + id,
+        method: "PATCH",
+        data: itemObj
+    }).done(function(data) {
+        console.log("item updated");
+    });
 }
 
 function postItem(itemObj) {
@@ -399,15 +434,27 @@ function emptyMain() {
     $('div[data-attr="button-row"]').empty();
     $('div[data-attr="list-area"]').empty();
     $('div[data-attr="restaurant-form"]').empty();
-
+    $('div[data-attr="about-area"]').empty();
 }
 
-var item = {
-    restaurant_id: 3,
-    name: "Plum Galette",
-    price: 14,
-    order_count: 0,
-    image_url: "http://cafefernando.com/images/plumgalette.jpg"
+function setMenuActiveState(section) {
+    switch (section) {
+        case "restaurants":
+            $('#restaurants-menu-item').addClass('active');
+            $('#about-menu-item').removeClass('active');
+            $('#chart-menu-item').removeClass('active');
+            break;
+        case "about":
+            $('#about-menu-item').addClass('active');
+            $('#restaurants-menu-item').removeClass('active');
+            $('#chart-menu-item').removeClass('active');
+            break;
+        case "chart":
+            $('#chart-menu-item').addClass('active');
+            $('#restaurants-menu-item').removeClass('active');
+            $('#about-menu-item').removeClass('active');
+            break;
+    }
 }
 
 

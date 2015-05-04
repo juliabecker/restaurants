@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Restaurant Group</title>
     <link rel="stylesheet" type="text/css" href="/bower_components/semantic-ui/dist/semantic.css">
+    <link href='http://fonts.googleapis.com/css?family=Poiret+One|Josefin+Slab|Amatic+SC|Raleway:400,100,200,300,500' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.6/animate.min.css">
 
     <style>
         #logo {
@@ -18,6 +20,20 @@
             margin-top: 100px;
             margin-bottom: 50px;
         }
+        h1 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 40px;
+            font-weight: 200;
+        }
+        a {
+            color: rgba(0, 0, 0, 0.85);
+        }
+        a:hover {
+            color: rgba(0, 0, 0, 0.5);
+        }
+        body {
+            font-family: 'Raleway', sans-serif;;
+        }
     </style>    
 
 </head>
@@ -25,12 +41,12 @@
     <main class="ui centered eight column page grid">
 
         <!--Header-->
-        <div class="header">
+        <div class="header animated fadeInDownBig">
             <div class="row" id="top-row">
-               <img id="logo" src="/img/radishesblackwhite.png">
+               <a href="/"><img id="logo" src="/img/radishesblackwhite.png"></a>
             </div>
             <div class="row">
-                <h1>Restaurant Group</h1>
+                <h1><a href="/">Radish Restaurants</a></h1>
             </div>
         </div>
         
@@ -38,15 +54,15 @@
         <div class="menu-row">
             <div class="ui divider"></div>
                 <div class="ui text menu">
-                    <a class="active item" href="/">
+                    <a class="item" id="restaurants-menu-item" href="/">
         <!--                 <i class="spoon icon"></i>
          -->                Restaurants
                     </a>
-                    <a class="item">
+                    <a class="item" id="chart-menu-item" href="#/chart">
         <!--                 <i class="dollar icon"></i> 
          -->                Chart
                     </a>
-                    <a class="item" href="#/about">
+                    <a class="item" id="about-menu-item" href="#/about">
         <!--                 <i class="info icon"></i>
          -->                About
                     </a>
@@ -59,7 +75,7 @@
         <div class="sixteen wide centered column">
             <div class="ui four stackable cards" data-attr="restaurant-row"></div>
         </div>
-
+    
         <!--Restaurant Detail Display-->
         <div class="six wide column" data-attr="restaurant-detail"></div>
 
@@ -69,6 +85,10 @@
 
         <!--Add New Restaurant Button-->
         <div class="row" data-attr="button-row"></div>
+
+        <!--About Page Row-->
+        <div class="sixteen wide column" data-attr="about-area"></div>
+        
         
 
     </main>
@@ -76,21 +96,28 @@
     <!--Restaurant Card Template - For All Restaurants Page-->
     <script type="text/template" data-id="restaurant-template">
 
-        <div class="ui card" data-attr="restaurant" data-id="{{id}}">
-            <a class="image" href="#/restaurant/{{id}}">
-                <img src={{image_url}}>
-            </a>
-            <div class="content">
-                <a class="header" href="#/restaurant/{{id}}">{{name}}</a>
+        <a class="ui dimmable card animated fadeIn" data-attr="restaurant" data-id="{{id}}" href="#/restaurant/{{id}}">
+            <div class="ui dimmer">
+                <div class="content">
+                    <div class="center">
+                        <div class="ui inverted button">See Menu</div>
+                    </div>
+                </div>
             </div>
-        </div>
+            <div class="image" >
+                <img src={{image_url}}>
+            </div>
+            <div class="content">
+                <div class="header">{{name}}</div>
+            </div>
+        </a>
 
     </script>
 
     <!--Restaurant Card Template - For Restaurant Detail -->
     <script type="text/template" data-attr="restaurant-detail-template">
 
-        <a class="ui dimmable card" data-attr="restaurant-card" data-id="{{id}}">
+        <a class="ui dimmable animated fadeIn card" data-attr="restaurant-card" data-id="{{id}}">
             <div class="ui dimmer">
                 <div class="content">
                     <div class="center">
@@ -115,7 +142,7 @@
     <!--Item List Template-->
     <script type="text/template" data-id="list-template">
 
-            <div class="stackable item" data-attr="item" data-id="{{id}}" data-restaurantid="{{restaurant_id}}">
+            <div class="stackable draggable animated fadeIn item" data-attr="item" data-id="{{id}}" data-restaurantid="{{restaurant_id}}">
                 <a class="ui small dimmable image" data-attr="item-image">  
                     <div class="ui dimmer">
                         <div class="content">
@@ -202,7 +229,7 @@
     <!--Item Edit Modal-->
     <script type="text/template" data-attr="item-edit-modal">
 
-        <div class="ui modal" data-attr="item-edit-modal" data-restaurantId="{{id}}">
+        <div class="ui modal" data-attr="item-edit-modal" data-id="{{id}}" data-restaurantId="{{id}}">
             <i class="close icon"></i>
                 <div class="header">
                     Edit "{{name}}"
@@ -212,7 +239,7 @@
                         <img src="{{image_url}}">
                     </div>
                     <div class="description">
-                        <div class="ui form" data-attr="item-edit-form" data-id="{{restaurant_id}}">
+                        <div class="ui form" data-attr="item-edit-form" >
                 <div class="two fields">
                     <div class="field">
                       <label>Name</label>
@@ -289,11 +316,26 @@
 
     </script>
 
+    <script type="text/template" data-attr="about-text">
+
+         <h2>About Julia</h2>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis voluptatum sit, dicta, sunt illum unde? Aspernatur nesciunt sapiente eos illum atque fuga quas facere commodi perspiciatis explicabo inventore, dicta fugiat?</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore obcaecati quisquam cupiditate eligendi repellat tenetur delectus minima ipsa et nihil impedit ratione libero, soluta vel distinctio unde a ab illum.</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut voluptatibus exercitationem non tenetur quidem labore odit inventore commodi necessitatibus, maxime atque voluptatem quo hic provident odio dolorem doloribus. Consectetur, explicabo!</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas aperiam molestiae minima accusantium quibusdam dignissimos iusto ad voluptate expedita cum consequatur, quasi adipisci tempora! Sint officiis non est ipsa ut!</p>
+
+    </script>
+
 
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="/bower_components/semantic-ui/dist/semantic.js"></script>
     <script src="https://rawgit.com/flatiron/director/master/build/director.min.js"></script>
     <script type="text/javascript" src="/bower_components/mustache/mustache.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/draggabilly/1.2.0/draggabilly.pkgd.min.js"></script>
     <script type="text/javascript" src="/app.js"></script>
 </body>
 </html>

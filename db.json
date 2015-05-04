@@ -4,7 +4,7 @@
       "name": "Chez Panisse",
       "location": "Berkeley, CA",
       "cuisine": "New American",
-      "image_url": "http://nationaleatlocalday.com/wp-content/uploads/2013/09/Chez-Panisse-Laurels-logo-lo-res.jpg",
+      "image_url": "http://www.goines.net/Gallery/192_CP_30th_gal.jpg",
       "id": 3,
       "key": "Chez Panissey",
       "objKey": "Chez Panissey"
@@ -42,7 +42,7 @@
     {
       "restaurant_id": 3,
       "name": "Artichoke Nettles Pizzetta",
-      "price": 17,
+      "price": 18,
       "order_count": 15,
       "image_url": "http://slice.seriouseats.com/images/2011/11/20111108-178690-Chez-Panisse-Artichoke-Nettles-cc.JPG",
       "id": 1
