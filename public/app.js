@@ -23,6 +23,7 @@ var routes = {
 $('main').on('click', '[data-action="add-restaurant"]', function(e) {
     $('main').append(restFormTemplate);
     $('body').animate({scrollTop:$('div[data-attr="button-row"]').offset().top},500)
+    $('input[data-attr="restaurant-name"]').focus();
 });
 
 // Add New Item Button
@@ -33,6 +34,8 @@ $('main').on('click', '[data-action="add-item"]', function(e) {
         "restaurant_id": id
     }));
     $('body').animate({scrollTop:$('div[data-attr="list-area"]').offset().top},500)
+    $('input[data-attr="item-name"]').focus();
+
 
 });
 
