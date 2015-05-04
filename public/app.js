@@ -27,7 +27,9 @@ var routes = {
 // Add New Restaurant Button Clicked - Display Form
 $('main').on('click', '[data-action="add-restaurant"]', function(e) {
     $('#main-content').append(restFormTemplate);
-    $('body').animate({scrollTop:$('footer').offset().top},500)
+    $('body').animate({
+        scrollTop: $('footer').offset().top
+    }, 500)
     $('input[data-attr="restaurant-name"]').focus();
 });
 
@@ -38,7 +40,9 @@ $('main').on('click', '[data-action="add-item"]', function(e) {
     $('div[data-attr="list-area"]').append(Mustache.render(itemFormTemplate, {
         "restaurant_id": id
     }));
-    $('body').animate({scrollTop:$('footer').offset().top},500)
+    $('body').animate({
+        scrollTop: $('footer').offset().top
+    }, 500)
     $('input[data-attr="item-name"]').focus();
 });
 
@@ -189,68 +193,162 @@ function showRestaurants() {
     });
 }
 
-function showChart() {
-setMenuActiveState("chart");
-$('#main-content').empty();
-    // Testing Chart
-// Get context with jQuery - using jQuery's .get() method.
-$('#main-content').append(chartTemplate);
-var ctx = $("#myChart").get(0).getContext("2d");
-// This will get the first returned node in the jQuery collection.
-// var myNewChart = new Chart(ctx);
-
-var data = [
-    {
-        value: 300,
-        color:"#F7464A",
-        highlight: "#FF5A5E",
-        label: "Red"
-    },
-    {
-        value: 50,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
-        label: "Green"
-    },
-    {
-        value: 100,
-        color: "#FDB45C",
-        highlight: "#FFC870",
-        label: "Yellow"
-    }
-]
-
-var options = {
-    //Boolean - Whether we should show a stroke on each segment
-    segmentShowStroke : true,
-
-    //String - The colour of each segment stroke
-    segmentStrokeColor : "#fff",
-
-    //Number - The width of each segment stroke
-    segmentStrokeWidth : 2,
-
-    //Number - The percentage of the chart that we cut out of the middle
-    percentageInnerCutout : 50, // This is 0 for Pie charts
-
-    //Number - Amount of animation steps
-    animationSteps : 100,
-
-    //String - Animation easing effect
-    animationEasing : "easeOutBounce",
-
-    //Boolean - Whether we animate the rotation of the Doughnut
-    animateRotate : true,
-
-    //Boolean - Whether we animate scaling the Doughnut from the centre
-    animateScale : false,
-
-    //String - A legend template
-    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-
+function sortByKey(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key];
+        var y = b[key];
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0)) * -1;
+    });
 }
-var myPieChart = new Chart(ctx).Pie(data, options);
 
+function showChart() {
+    setMenuActiveState("chart");
+    $('#main-content').empty();
+
+    $('#main-content').append(chartTemplate);
+    var ctx = $("#myChart").get(0).getContext("2d");
+
+    $.ajax({
+        url: "/items",
+        method: "GET"
+    }).done(function(items) {
+        var revenueArray = items.map(function(item) {
+            return {
+                "id": item.id,
+                "name": item.name,
+                "restaurant_id": item.restaurant_id,
+                "revenue": (parseInt(item.price) * parseInt(item.order_count))
+            }
+        });
+
+        var sortedByRevenueArray = sortByKey(revenueArray, "revenue");
+        var topTenArray = sortedByRevenueArray.slice(0, 10);
+        console.log(topTenArray);
+
+        var data = {
+            labels: [topTenArray[0].name, topTenArray[1].name, topTenArray[2].name, topTenArray[3].name, topTenArray[4].name, topTenArray[5].name, topTenArray[6].name, topTenArray[7].name, topTenArray[8].name, topTenArray[9].name],
+            datasets: [{
+                    label: "Top Ten Profitable Items",
+                    fillColor: "rgba(220,220,220,0.5)",
+                    strokeColor: "rgba(220,220,220,0.8)",
+                    highlightFill: "rgba(220,220,220,0.75)",
+                    highlightStroke: "rgba(220,220,220,1)",
+                    data: [
+                        parseInt(topTenArray[0].revenue),
+                        parseInt(topTenArray[1].revenue),
+                        parseInt(topTenArray[2].revenue),
+                        parseInt(topTenArray[3].revenue),
+                        parseInt(topTenArray[4].revenue),
+                        parseInt(topTenArray[5].revenue),
+                        parseInt(topTenArray[6].revenue),
+                        parseInt(topTenArray[7].revenue),
+                        parseInt(topTenArray[8].revenue),
+                        parseInt(topTenArray[9].revenue)
+                    ]
+                }]
+        };
+
+
+
+        // var data = [{
+        //     value: topTenArray[0].revenue,
+        //     color: "#F7464A",
+        //     highlight: "#FF5A5E",
+        //     label: topTenArray[0].name
+        // }, {
+        //     value: topTenArray[1].revenue,
+        //     color: "#46BFBD",
+        //     highlight: "#5AD3D1",
+        //     label: topTenArray[1].name
+        // }, {
+        //     value: topTenArray[2].revenue,
+        //     color: "#FDB45C",
+        //     highlight: "#FFC870",
+        //     label: topTenArray[2].name
+        // },
+        // {
+        //     value: topTenArray[3].revenue,
+        //     color: "#FDB45C",
+        //     highlight: "#FFC870",
+        //     label: topTenArray[3].name
+        // }]; 
+        // {
+        //     value: topTenArray[4].revenue,
+        //     color: "#FDB45C",
+        //     highlight: "#FFC870",
+        //     label: topTenArray[4].name
+        // },
+        // {
+        //     value: topTenArray[5].revenue,
+        //     color: "#FDB45C",
+        //     highlight: "#FFC870",
+        //     label: topTenArray[5].name
+        // }
+        // {
+        //     value: topTenArray[6].revenue,
+        //     color: "#FDB45C",
+        //     highlight: "#FFC870",
+        //     label: topTenArray[6].name
+        // },
+        // {
+        //     value: topTenArray[7].revenue,
+        //     color: "#FDB45C",
+        //     highlight: "#FFC870",
+        //     label: topTenArray[7].name
+        // },
+        // {
+        //     value: topTenArray[8].revenue,
+        //     color: "#FDB45C",
+        //     highlight: "#FFC870",
+        //     label: topTenArray[8].name
+        // },
+        // {
+        //     value: topTenArray[9].revenue,
+        //     color: "#FDB45C",
+        //     highlight: "#FFC870",
+        //     label: topTenArray[9].name
+        // }];
+
+        var options = {
+                scaleFontFamily: 'Raleway, sans-serif',
+                responsive: true,
+                //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+                scaleBeginAtZero: true,
+
+                //Boolean - Whether grid lines are shown across the chart
+                scaleShowGridLines: true,
+
+                //String - Colour of the grid lines
+                scaleGridLineColor: "rgba(0,0,0,.05)",
+
+                //Number - Width of the grid lines
+                scaleGridLineWidth: 1,
+
+                //Boolean - Whether to show horizontal lines (except X axis)
+                scaleShowHorizontalLines: true,
+
+                //Boolean - Whether to show vertical lines (except Y axis)
+                scaleShowVerticalLines: true,
+
+                //Boolean - If there is a stroke on each bar
+                barShowStroke: true,
+
+                //Number - Pixel width of the bar stroke
+                barStrokeWidth: 2,
+
+                //Number - Spacing between each of the X value sets
+                barValueSpacing: 5,
+
+                //Number - Spacing between data sets within X values
+                barDatasetSpacing: 1,
+
+                //String - A legend template
+                legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+
+            }
+        
+        var myBarChart = new Chart(ctx).Bar(data, options);
+    });
 }
 
 
@@ -324,36 +422,36 @@ function showRestaurant(restaurant_id) {
         $('.ui.card').dimmer({
             on: 'hover'
         });
-    
 
-    // GET & Display Restaurant Item Data
-    $.ajax({
-        url: "/items?restaurant_id=" + restaurant_id,
-        method: "GET"
-    }).done(function(items) {
-        var itemEls = items.map(function(item) {
-            return Mustache.render(listTemplate, item);
+
+        // GET & Display Restaurant Item Data
+        $.ajax({
+            url: "/items?restaurant_id=" + restaurant_id,
+            method: "GET"
+        }).done(function(items) {
+            var itemEls = items.map(function(item) {
+                return Mustache.render(listTemplate, item);
+            });
+            var $button = $("<div class='item'><button data-action='add-item' data-id='" + restaurant_id + "' type='submit' class='ui button'>Add Item</button></div>");
+
+            // $(itemListContainer).append(itemEls);
+
+
+            $('#main-content').append($(itemListContainer));
+
+
+            $('div[data-attr="list-area"]').append(itemEls);
+            $('div[data-attr="list-area"]').append($button);
+
+            $('.stackable.item .image').dimmer({
+                on: 'hover'
+            });
+
+            var $draggable = $('.draggable').draggabilly({
+                axis: 'y',
+                containment: $('div[data-attr="list-area"]'),
+            })
         });
-        var $button = $("<div class='item'><button data-action='add-item' data-id='" + restaurant_id + "' type='submit' class='ui button'>Add Item</button></div>");
-
-        // $(itemListContainer).append(itemEls);
-
-
-        $('#main-content').append($(itemListContainer));
-
-
-        $('div[data-attr="list-area"]').append(itemEls);
-        $('div[data-attr="list-area"]').append($button);
-
-        $('.stackable.item .image').dimmer({
-            on: 'hover'
-        });
-
-        var $draggable = $('.draggable').draggabilly({
-            axis: 'y',
-            containment: $('div[data-attr="list-area"]'),
-        })
-    });
 
     });
 
