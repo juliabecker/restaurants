@@ -93,6 +93,22 @@
       "image_url": "http://newyork.seriouseats.com/images/20100308prune3.jpg",
       "restaurant_id": 4,
       "id": 8
+    },
+    {
+      "name": "Whole Grilled Fish with Fennel Oil",
+      "price": 28,
+      "order_count": 24,
+      "image_url": "http://www.theinfatuation.com/wp-content/uploads/2010/04/Grilled-Fish-Prune-The-Infatuation-630x420.jpg",
+      "restaurant_id": 4,
+      "id": 9
+    },
+    {
+      "name": "Dutch Pancake with Berries",
+      "price": 14,
+      "order_count": 54,
+      "image_url": "http://atasteoftravelblog.com/wp-content/uploads/2012/06/Brunch-in-NYC-20.jpg",
+      "restaurant_id": 4,
+      "id": 10
     }
   ],
   "public": []

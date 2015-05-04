@@ -80,7 +80,7 @@ $('main').on('click', '[data-action="item-post"]', function(e) {
 });
 
 // Edit Image Click - Display Modal
-$('main').on('click', '[data-attr="item-image"]', function(e) {
+$('main').on('click', '[data-attr="item-list-image"]', function(e) {
 
     //Clear Existing Modals From DOM
     $('div[data-attr="item-edit-modal"]').empty();
