@@ -22,6 +22,7 @@ var routes = {
 // Add New Restaurant Button
 $('main').on('click', '[data-action="add-restaurant"]', function(e) {
     $('main').append(restFormTemplate);
+    $('body').animate({scrollTop:$('div[data-attr="button-row"]').offset().top},500)
 });
 
 // Add New Item Button
@@ -31,6 +32,8 @@ $('main').on('click', '[data-action="add-item"]', function(e) {
     $('div[data-attr="list-area"]').append(Mustache.render(itemFormTemplate, {
         "restaurant_id": id
     }));
+    $('body').animate({scrollTop:$('div[data-attr="list-area"]').offset().top},500)
+
 });
 
 // Submit New Restaurant
