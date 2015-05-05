@@ -38,6 +38,10 @@ var routes = {
     "/about": showAbout
 }
 
+// Initialize router
+var router = Router(routes);
+router.init('/');
+
 // -------------------------- Event Listeners ---------------------------------
 
 // Add New Restaurant Button Clicked - Display Form
@@ -290,6 +294,7 @@ function postRestaurant(restaurantObj) {
     });
 }
 
+// Delete restaurant from database
 function deleteRestauraunt(id) {
     $.ajax({
         url: "/restaurants/" + id,
@@ -299,6 +304,7 @@ function deleteRestauraunt(id) {
     });
 }
 
+// Update restaurant in database
 function putRestaurant(formObj) {
     var id = formObj.data("id");
     var name = formObj.find('[data-attr="restaurant-name"]').val();
@@ -320,14 +326,12 @@ function putRestaurant(formObj) {
     }).done(function(data) {
         console.log("restaurant updated");
     });
-
 }
 
+// Display restaurant detail page (one restaurant w/ menu items)
 function showRestaurant(restaurant_id) {
     setMenuActiveState("restaurants");
     $('#main-content').empty();
-
-    var $restaurantHtml;
 
     // GET & Display Restaurant Data
     $.ajax({
@@ -335,7 +339,7 @@ function showRestaurant(restaurant_id) {
         method: "GET"
     }).done(function(restaurant) {
         $('#main-content').append(Mustache.render(restDetailTemplate, restaurant));
-
+        // Add dimmer to restaurant card
         $('.ui.card').dimmer({
             on: 'hover'
         });
@@ -349,16 +353,15 @@ function showRestaurant(restaurant_id) {
                 return Mustache.render(listTemplate, item);
             });
             var $button = $("<div class='item'><button data-action='add-item' data-id='" + restaurant_id + "' type='submit' class='ui button'>Add Item</button></div>");
-
             $('#main-content').append($(itemListContainer));
 
             $('div[data-attr="list-area"]').append(itemEls);
             $('div[data-attr="list-area"]').append($button);
-
+            // Add dimmer to item images
             $('.stackable.item .image').dimmer({
                 on: 'hover'
             });
-
+            // Items are draggable w/in container
             var $draggable = $('.draggable').draggabilly({
                 axis: 'y',
                 containment: $('div[data-attr="list-area"]'),
@@ -369,6 +372,7 @@ function showRestaurant(restaurant_id) {
 
 }
 
+// Update item in database
 function putItem(formObj) {
     var id = formObj.data("id");
     var name = formObj.find('[data-attr="item-name"]').val();
@@ -384,13 +388,14 @@ function putItem(formObj) {
     }
     $.ajax({
         url: "/items/" + id,
-        method: "PATCH",
+        method: "PATCH", // Use PATCH because don't update restaurant_id
         data: itemObj
     }).done(function(data) {
         console.log("item updated");
     });
 }
 
+// Add new item to database
 function postItem(itemObj) {
     $.ajax({
         url: "/items",
@@ -401,6 +406,7 @@ function postItem(itemObj) {
     });
 }
 
+// Delete item from database
 function deleteItem(id) {
     $.ajax({
         url: "/items/" + id,
@@ -410,6 +416,7 @@ function deleteItem(id) {
     });
 }
 
+// Set active states in menu
 function setMenuActiveState(section) {
     switch (section) {
         case "restaurants":
@@ -429,7 +436,3 @@ function setMenuActiveState(section) {
             break;
     }
 }
-
-var router = Router(routes);
-
-router.init('/');
