@@ -1,7 +1,7 @@
 {
   "restaurants": [
     {
-      "name": "Chez Panisse",
+      "name": "Chez Panissey",
       "location": "Berkeley, CA",
       "cuisine": "New American",
       "image_url": "http://www.goines.net/Gallery/192_CP_30th_gal.jpg",
@@ -29,13 +29,20 @@
       "cuisine": "Italian",
       "image_url": "http://www.speedyromeo.com/jville.jpeg",
       "id": 9
+    },
+    {
+      "name": "Roberta's",
+      "location": "Brooklyn, NY",
+      "cuisine": "American",
+      "image_url": "http://ecx.images-amazon.com/images/I/41xevI%2BQlsL._SX258_BO1,204,203,200_.jpg",
+      "id": 10
     }
   ],
   "items": [
     {
       "restaurant_id": 3,
       "name": "Artichoke Nettles Pizzetta",
-      "price": 18,
+      "price": 19,
       "order_count": 568,
       "image_url": "http://slice.seriouseats.com/images/2011/11/20111108-178690-Chez-Panisse-Artichoke-Nettles-cc.JPG",
       "id": 1

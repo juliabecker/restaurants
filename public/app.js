@@ -113,8 +113,8 @@ $('main').on('click', '[data-action="item-post"]', function(e) {
 $('main').on('click', '[data-attr="item-list-image"]', function(e) {
 
     //Clear Existing Modals From DOM
-    $('div[data-attr="item-edit-modal"]').empty();
-    $('div[data-attr="restaurant-edit-modal"]').empty();
+    $('div[data-attr="item-edit-modal"]').remove();
+    $('div[data-attr="restaurant-edit-modal"]').remove();
 
     var $item = $(this).parents('div[data-attr="item"]');
     var id = $item.data("id");
@@ -154,8 +154,8 @@ $('main').on('click', '[data-attr="item-list-image"]', function(e) {
 $('main').on('click', '[data-attr="restaurant-card"]', function(e) {
 
     //Clear Existing Modals From DOM
-    $('div[data-attr="restaurant-edit-modal"]').empty();
-    $('div[data-attr="item-edit-modal"]').empty();
+    $('div[data-attr="restaurant-edit-modal"]').remove();
+    $('div[data-attr="item-edit-modal"]').remove();
 
     var $restaurant = $(this);
 
