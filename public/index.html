@@ -6,38 +6,7 @@
     <link rel="stylesheet" type="text/css" href="/bower_components/semantic-ui/dist/semantic.css">
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.6/animate.min.css">
-
-    <style>
-        #logo {
-            width: 75px;
-            margin-bottom: 20px;
-        }
-        .menu-row {
-            padding: 0px;
-            width: 100%;
-        }
-        .header {
-            margin-top: 100px;
-            margin-bottom: 50px;
-        }
-        h1 {
-            font-family: 'Raleway', sans-serif;
-            font-size: 40px;
-            font-weight: 200;
-        }
-        a {
-            color: rgba(0, 0, 0, 0.85);
-        }
-        a:hover {
-            color: rgba(0, 0, 0, 0.5);
-        }
-        body {
-            font-family: 'Raleway', sans-serif;
-        }
-        .ui.divider {
-            margin: 2rem 0rem;
-        }
-    </style>    
+    <link rel="stylesheet" type="text/css" href="main.css">   
 
 </head>
 <body>
@@ -47,35 +16,39 @@
         <div class="header animated fadeInDownBig">
             <div class="row" id="top-row">
              <a href="/"><img id="logo" src="/img/radishesblackwhite.png"></a>
-         </div>
-         <div class="row">
-            <h1><a href="/">Radish Restaurants</a></h1>
+            </div>
+            <div class="row">
+                <h1><a href="/">Radish Restaurants</a></h1>
+            </div>
         </div>
-    </div>
 
-    <!--Menu-->
-    <div class="menu-row">
-        <div class="ui text menu">
-            <a class="item animated fadeIn" id="restaurants-menu-item" href="/">
-                Restaurants
-            </a>
-            <a class="item animated fadeIn" id="chart-menu-item" href="#/chart">
-               $ Chart
-            </a>
-            <a class="item animated fadeIn" id="about-menu-item" href="#/about">
-             About
-            </a>
+        <!--Menu-->
+        <div class="menu-row">
+            <div class="ui text menu">
+                <a class="item animated fadeIn" id="restaurants-menu-item" href="/">
+                    Restaurants
+                </a>
+                <a class="item animated fadeIn" id="chart-menu-item" href="#/chart">
+                   $ Chart
+                </a>
+                <a class="item animated fadeIn" id="about-menu-item" href="#/about">
+                 About
+                </a>
+            </div>
+            <div class="ui divider"></div>
         </div>
-        <div class="ui divider"></div>
-    </div>
 
-<!--All Content Container-->
-<div id="main-content" class="ui centered grid"></div>
+        <!--All Content Container-->
+        <div id="main-content" class="ui centered grid"></div>
 
-<footer></footer>
+        <!--Empty footer for setting scroll animations-->
+        <footer></footer>
+
+    </main>
 
 
-</main>
+<!--ALL TEMPLATES-->
+
 
 <!--All Restaurants Container-->
 <script type="text/template" data-attr="all-restaurants-container">
@@ -114,7 +87,7 @@
 
 </script>
 
-<!--Restaurant Card Template - For Restaurant Detail -->
+<!--Restaurant Detail Card Template-->
 <script type="text/template" data-attr="restaurant-detail-template">
 
     <div class="six wide column" data-attr="restaurant-detail">
@@ -246,30 +219,30 @@
                         <div class="field">
                           <label>Name</label>
                           <input data-attr="item-name" type="text" value="{{name}}">
-                      </div>
-                      <div class="field">
+                        </div>
+                        <div class="field">
                           <label>Price</label>
                           <input data-attr="item-price" type="number" value="{{price}}">
-                      </div>
-                  </div>
-                  <div class="two fields">
-                    <div class="field">
-                      <label>Order Count</label>
-                      <input data-attr="item-order-count" type="number" value="{{order_count}}">
-                  </div>
-                  <div class="field">
-                      <label>Image URL</label>
-                      <input data-attr="item-image" type="text" value="{{image_url}}">
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-  <div class="actions">
-    <div class="ui primary button approve" data-attr="item-edit-submit">Submit Edits</div>
-    <div class="ui button cancel" data-attr="item-delete">Delete Item</div>
-</div>
-</div>
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Order Count</label>
+                            <input data-attr="item-order-count" type="number" value="{{order_count}}">
+                        </div>
+                        <div class="field">
+                            <label>Image URL</label>
+                            <input data-attr="item-image" type="text" value="{{image_url}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui primary button approve" data-attr="item-edit-submit">Submit Edits</div>
+            <div class="ui button cancel" data-attr="item-delete">Delete Item</div>
+        </div>
+    </div>
 
 </script>
 
@@ -289,58 +262,53 @@
                 <div class="ui form" data-attr="restaurant-edit-form" data-id="{{id}}">
                     <div class="two fields">
                         <div class="field">
-                          <label>Name</label>
-                          <input data-attr="restaurant-name" type="text" value="{{name}}">
-                      </div>
-                      <div class="field">
-                          <label>Location</label>
-                          <input data-attr="restaurant-location" type="text" value="{{location}}">
-                      </div>
-                  </div>
-                  <div class="two fields">
-                    <div class="field">
-                      <label>Cuisine</label>
-                      <input data-attr="restaurant-cuisine" type="text" value="{{cuisine}}">
-                  </div>
-                  <div class="field">
-                      <label>Image URL</label>
-                      <input data-attr="restaurant-image" type="text" value="{{image_url}}">
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-  <div class="actions">
-    <div class="ui primary button approve" data-attr="restaurant-edit-submit">Submit Edits</div>
-    <div class="ui button deny" data-attr="restaurant-delete">Delete Restaurant</div>
-</div>
-</div>
+                            <label>Name</label>
+                            <input data-attr="restaurant-name" type="text" value="{{name}}">
+                        </div>
+                        <div class="field">
+                            <label>Location</label>
+                            <input data-attr="restaurant-location" type="text" value="{{location}}">
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Cuisine</label>
+                            <input data-attr="restaurant-cuisine" type="text" value="{{cuisine}}">
+                        </div>
+                        <div class="field">
+                            <label>Image URL</label>
+                            <input data-attr="restaurant-image" type="text" value="{{image_url}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui primary button approve" data-attr="restaurant-edit-submit">Submit Edits</div>
+            <div class="ui button deny" data-attr="restaurant-delete">Delete Restaurant</div>
+        </div>
+    </div>
 
 </script>
 
 <script type="text/template" data-attr="about-text">
 
-<div class="sixteen wide column">
-   <h2>About Julia</h2>
-
-   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis voluptatum sit, dicta, sunt illum unde? Aspernatur nesciunt sapiente eos illum atque fuga quas facere commodi perspiciatis explicabo inventore, dicta fugiat?</p>
-
-   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore obcaecati quisquam cupiditate eligendi repellat tenetur delectus minima ipsa et nihil impedit ratione libero, soluta vel distinctio unde a ab illum.</p>
-
-   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut voluptatibus exercitationem non tenetur quidem labore odit inventore commodi necessitatibus, maxime atque voluptatem quo hic provident odio dolorem doloribus. Consectetur, explicabo!</p>
-
-   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas aperiam molestiae minima accusantium quibusdam dignissimos iusto ad voluptate expedita cum consequatur, quasi adipisci tempora! Sint officiis non est ipsa ut!</p>
-
-   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas aperiam molestiae minima accusantium quibusdam dignissimos iusto ad voluptate expedita cum consequatur, quasi adipisci tempora! Sint officiis non est ipsa ut!</p>
+    <div class="twelve wide column">
+        <h2>About Julia</h2>
+        <p>Julia is a developer-in training living in Brooklyn and missing the weather of her native, sunny California. When she's not coding, she's cooking. She wishes she owned (and could eat all) all of these restaurants.</p>
+        <img class="ui large centered image" src="img/julia_becker.jpg">
    </div>
+
 </script>
 
 <script type="text/template" data-attr="chart-template">
-    <div class="twelve wide column ">
-        <canvas id="myChart" width="400px"height="400px"></canvas>
-    </div>
-</script>
 
+    <div class="twelve wide column ">
+        <h2>Highest Grossing Items</h2>
+        <canvas id="barChart" width="400px" height="400px"></canvas>
+    </div>
+
+</script>
 
 <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
 <script type="text/javascript" src="/bower_components/semantic-ui/dist/semantic.js"></script>

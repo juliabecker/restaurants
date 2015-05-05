@@ -67,7 +67,7 @@
     {
       "name": "Bone Marrow",
       "price": 18,
-      "order_count": 20,
+      "order_count": 280,
       "image_url": "http://www.restaurantgirl.com/assets_c/2012/01/Marrow%20-%20Prune-thumb-4752x3168-2885.jpg",
       "restaurant_id": 4,
       "id": 7
@@ -75,7 +75,7 @@
     {
       "name": "Radishes with Butter",
       "price": 9,
-      "order_count": 10,
+      "order_count": 478,
       "image_url": "http://newyork.seriouseats.com/images/20100308prune3.jpg",
       "restaurant_id": 4,
       "id": 8
@@ -83,7 +83,7 @@
     {
       "name": "Whole Grilled Fish with Fennel Oil",
       "price": 28,
-      "order_count": 24,
+      "order_count": 478,
       "image_url": "http://www.theinfatuation.com/wp-content/uploads/2010/04/Grilled-Fish-Prune-The-Infatuation-630x420.jpg",
       "restaurant_id": 4,
       "id": 9
@@ -91,7 +91,7 @@
     {
       "name": "Dutch Pancake with Berries",
       "price": 14,
-      "order_count": 54,
+      "order_count": 678,
       "image_url": "http://atasteoftravelblog.com/wp-content/uploads/2012/06/Brunch-in-NYC-20.jpg",
       "restaurant_id": 4,
       "id": 10
@@ -99,7 +99,7 @@
     {
       "name": "Clam Pizza",
       "price": 14,
-      "order_count": 136,
+      "order_count": 345,
       "image_url": "http://apassionateplate.com/wp-content/uploads/2014/03/Delancys-Clam-Pizza.jpg",
       "restaurant_id": 7,
       "id": 11

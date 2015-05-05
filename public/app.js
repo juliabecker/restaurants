@@ -1,6 +1,6 @@
 console.log("Main Linked");
 
-// Establish Global Variables
+// HTML Templates
 var restTemplate = $('script[data-id="restaurant-template"]').text();
 var restDetailTemplate = $('script[data-attr="restaurant-detail-template').text();
 var restFormTemplate = $('script[data-attr="restaurant-form"]').text();
@@ -10,11 +10,27 @@ var itemEditTemplate = $('script[data-attr="item-edit-modal"]').text();
 var restaurantEditTemplate = $('script[data-attr="restaurant-edit-modal"]').text();
 var aboutTemplate = $('script[data-attr="about-text"]').text();
 var chartTemplate = $('script[data-attr="chart-template"]').text();
-
 var restContainer = $('script[data-attr="all-restaurants-container"]').text();
 var itemListContainer = $('script[data-attr="item-list-container"]').text();
 
-// Set Up Routes
+// Options for Chart
+var options = {
+    scaleFontFamily: 'Raleway, sans-serif',
+    responsive: true,
+    scaleBeginAtZero: true,
+    scaleShowGridLines: true,
+    scaleGridLineColor: "rgba(0,0,0,.05)",
+    scaleGridLineWidth: 1,
+    scaleShowHorizontalLines: true,
+    scaleShowVerticalLines: true,
+    barShowStroke: true,
+    barStrokeWidth: 2,
+    barValueSpacing: 5,
+    barDatasetSpacing: 1,
+    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+}
+
+// Client-Side Routes
 var routes = {
     "/": showRestaurants,
     "/restaurant/:restaurant_id": showRestaurant,
@@ -22,8 +38,8 @@ var routes = {
     "/about": showAbout
 }
 
+// -------------------------- Event Listeners ---------------------------------
 
-// Event Listeners
 // Add New Restaurant Button Clicked - Display Form
 $('main').on('click', '[data-action="add-restaurant"]', function(e) {
     $('#main-content').append(restFormTemplate);
@@ -33,7 +49,7 @@ $('main').on('click', '[data-action="add-restaurant"]', function(e) {
     $('input[data-attr="restaurant-name"]').focus();
 });
 
-// Add New Item Button Click - Display Form
+// Add New Item Button Clicked - Display Form
 $('main').on('click', '[data-action="add-item"]', function(e) {
     // Display Form with Restaurant ID
     var id = $(this).data("id");
@@ -46,7 +62,7 @@ $('main').on('click', '[data-action="add-item"]', function(e) {
     $('input[data-attr="item-name"]').focus();
 });
 
-// Submit New Restaurant Button Cilcked
+// Submit New Restaurant Button Clicked - Save Restaurant
 $('main').on('click', '[data-action="restaurant-post"]', function(e) {
     var $form = $(this).parents('div[data-attr="restaurant-post-form"]');
     var nameInput = $form.find('[data-attr="restaurant-name"]').val();
@@ -66,7 +82,7 @@ $('main').on('click', '[data-action="restaurant-post"]', function(e) {
 
 });
 
-// Submit New Item Button Clicked
+// Submit New Item Button Clicked - Save Item
 $('main').on('click', '[data-action="item-post"]', function(e) {
     var $form = $(this).parents('div[data-attr="item-post-form"]');
     var nameInput = $form.find('[data-attr="item-name"]').val();
@@ -89,7 +105,7 @@ $('main').on('click', '[data-action="item-post"]', function(e) {
 
 });
 
-// Edit Image Click - Display Modal
+// Item Edit Clicked - Display Edit Modal
 $('main').on('click', '[data-attr="item-list-image"]', function(e) {
 
     //Clear Existing Modals From DOM
@@ -117,11 +133,11 @@ $('main').on('click', '[data-attr="item-list-image"]', function(e) {
     $('div[data-attr="item-edit-modal"]').modal('show');
     $('div[data-attr="item-edit-modal"]')
         .modal({
-            onDeny: function() {
+            onDeny: function() { // "Delete Item" Clicked
                 deleteItem(id);
                 showRestaurant(restaurant_id);
             },
-            onApprove: function() {
+            onApprove: function() { // "Submit Edits" Clicked
                 putItem($(this));
                 showRestaurant(restaurant_id);
             }
@@ -130,7 +146,7 @@ $('main').on('click', '[data-attr="item-list-image"]', function(e) {
 
 });
 
-// Restaurant Card Click - Display Modal
+// Restaurant Edit Clicked - Display Edit Modal
 $('main').on('click', '[data-attr="restaurant-card"]', function(e) {
 
     //Clear Existing Modals From DOM
@@ -156,11 +172,11 @@ $('main').on('click', '[data-attr="restaurant-card"]', function(e) {
     $('main').append(Mustache.render(restaurantEditTemplate, restaurantObj));
     $('div[data-attr="restaurant-edit-modal"]')
         .modal({
-            onDeny: function() {
+            onDeny: function() { // "Delete Restaurant" Button Clicked
                 deleteRestauraunt(id);
                 window.location = "/";
             },
-            onApprove: function() {
+            onApprove: function() { // "Submit Edits" Button Clicked
                 putRestaurant($(this));
                 showRestaurant(id);
             }
@@ -169,10 +185,12 @@ $('main').on('click', '[data-attr="restaurant-card"]', function(e) {
 
 });
 
+// ----------------------------------- FUNCTIONS------------------------------
+
+// Show all Restaurants
 function showRestaurants() {
     setMenuActiveState("restaurants");
     $('#main-content').empty();
-
 
     $.ajax({
         method: "GET",
@@ -193,6 +211,7 @@ function showRestaurants() {
     });
 }
 
+// Return array sorted by given key
 function sortByKey(array, key) {
     return array.sort(function(a, b) {
         var x = a[key];
@@ -201,12 +220,13 @@ function sortByKey(array, key) {
     });
 }
 
+// Display chart Page
 function showChart() {
     setMenuActiveState("chart");
     $('#main-content').empty();
 
     $('#main-content').append(chartTemplate);
-    var ctx = $("#myChart").get(0).getContext("2d");
+    var ctx = $("#barChart").get(0).getContext("2d");
 
     $.ajax({
         url: "/items",
@@ -228,130 +248,30 @@ function showChart() {
         var data = {
             labels: [topTenArray[0].name, topTenArray[1].name, topTenArray[2].name, topTenArray[3].name, topTenArray[4].name, topTenArray[5].name, topTenArray[6].name, topTenArray[7].name, topTenArray[8].name, topTenArray[9].name],
             datasets: [{
-                    label: "Top Ten Profitable Items",
-                    fillColor: "rgba(220,220,220,0.5)",
-                    strokeColor: "rgba(220,220,220,0.8)",
-                    highlightFill: "rgba(220,220,220,0.75)",
-                    highlightStroke: "rgba(220,220,220,1)",
-                    data: [
-                        parseInt(topTenArray[0].revenue),
-                        parseInt(topTenArray[1].revenue),
-                        parseInt(topTenArray[2].revenue),
-                        parseInt(topTenArray[3].revenue),
-                        parseInt(topTenArray[4].revenue),
-                        parseInt(topTenArray[5].revenue),
-                        parseInt(topTenArray[6].revenue),
-                        parseInt(topTenArray[7].revenue),
-                        parseInt(topTenArray[8].revenue),
-                        parseInt(topTenArray[9].revenue)
-                    ]
-                }]
+                label: "Top Ten Profitable Items",
+                fillColor: "rgba(220,220,220,0.5)",
+                strokeColor: "rgba(220,220,220,0.8)",
+                highlightFill: "rgba(220,220,220,0.75)",
+                highlightStroke: "rgba(220,220,220,1)",
+                data: [
+                    parseInt(topTenArray[0].revenue),
+                    parseInt(topTenArray[1].revenue),
+                    parseInt(topTenArray[2].revenue),
+                    parseInt(topTenArray[3].revenue),
+                    parseInt(topTenArray[4].revenue),
+                    parseInt(topTenArray[5].revenue),
+                    parseInt(topTenArray[6].revenue),
+                    parseInt(topTenArray[7].revenue),
+                    parseInt(topTenArray[8].revenue),
+                    parseInt(topTenArray[9].revenue)
+                ]
+            }]
         };
-
-
-
-        // var data = [{
-        //     value: topTenArray[0].revenue,
-        //     color: "#F7464A",
-        //     highlight: "#FF5A5E",
-        //     label: topTenArray[0].name
-        // }, {
-        //     value: topTenArray[1].revenue,
-        //     color: "#46BFBD",
-        //     highlight: "#5AD3D1",
-        //     label: topTenArray[1].name
-        // }, {
-        //     value: topTenArray[2].revenue,
-        //     color: "#FDB45C",
-        //     highlight: "#FFC870",
-        //     label: topTenArray[2].name
-        // },
-        // {
-        //     value: topTenArray[3].revenue,
-        //     color: "#FDB45C",
-        //     highlight: "#FFC870",
-        //     label: topTenArray[3].name
-        // }]; 
-        // {
-        //     value: topTenArray[4].revenue,
-        //     color: "#FDB45C",
-        //     highlight: "#FFC870",
-        //     label: topTenArray[4].name
-        // },
-        // {
-        //     value: topTenArray[5].revenue,
-        //     color: "#FDB45C",
-        //     highlight: "#FFC870",
-        //     label: topTenArray[5].name
-        // }
-        // {
-        //     value: topTenArray[6].revenue,
-        //     color: "#FDB45C",
-        //     highlight: "#FFC870",
-        //     label: topTenArray[6].name
-        // },
-        // {
-        //     value: topTenArray[7].revenue,
-        //     color: "#FDB45C",
-        //     highlight: "#FFC870",
-        //     label: topTenArray[7].name
-        // },
-        // {
-        //     value: topTenArray[8].revenue,
-        //     color: "#FDB45C",
-        //     highlight: "#FFC870",
-        //     label: topTenArray[8].name
-        // },
-        // {
-        //     value: topTenArray[9].revenue,
-        //     color: "#FDB45C",
-        //     highlight: "#FFC870",
-        //     label: topTenArray[9].name
-        // }];
-
-        var options = {
-                scaleFontFamily: 'Raleway, sans-serif',
-                responsive: true,
-                //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-                scaleBeginAtZero: true,
-
-                //Boolean - Whether grid lines are shown across the chart
-                scaleShowGridLines: true,
-
-                //String - Colour of the grid lines
-                scaleGridLineColor: "rgba(0,0,0,.05)",
-
-                //Number - Width of the grid lines
-                scaleGridLineWidth: 1,
-
-                //Boolean - Whether to show horizontal lines (except X axis)
-                scaleShowHorizontalLines: true,
-
-                //Boolean - Whether to show vertical lines (except Y axis)
-                scaleShowVerticalLines: true,
-
-                //Boolean - If there is a stroke on each bar
-                barShowStroke: true,
-
-                //Number - Pixel width of the bar stroke
-                barStrokeWidth: 2,
-
-                //Number - Spacing between each of the X value sets
-                barValueSpacing: 5,
-
-                //Number - Spacing between data sets within X values
-                barDatasetSpacing: 1,
-
-                //String - A legend template
-                legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
-
-            }
-        
         var myBarChart = new Chart(ctx).Bar(data, options);
     });
 }
 
-
+// Display About Page
 function showAbout() {
     setMenuActiveState("about");
     $('#main-content').empty();
@@ -359,14 +279,14 @@ function showAbout() {
 
 }
 
+// Add restaurant to database
 function postRestaurant(restaurantObj) {
     $.ajax({
         url: "/restaurants",
         method: "POST",
         data: restaurantObj
-    }).done(function(data) {
-        // Hide form
-        $('div[data-attr="restaurant-post-form"]').empty();
+    }).done(function() {
+        console.log("restaurant added")
     });
 }
 
@@ -415,14 +335,10 @@ function showRestaurant(restaurant_id) {
         method: "GET"
     }).done(function(restaurant) {
         $('#main-content').append(Mustache.render(restDetailTemplate, restaurant));
-        // $('div[data-attr="restaurant-detail"]').append(Mustache.render(restDetailTemplate, restaurant));
-
-        // $restaurantHtml = Mustache.render(restDetailTemplate, restaurant);
 
         $('.ui.card').dimmer({
             on: 'hover'
         });
-
 
         // GET & Display Restaurant Item Data
         $.ajax({
@@ -434,11 +350,7 @@ function showRestaurant(restaurant_id) {
             });
             var $button = $("<div class='item'><button data-action='add-item' data-id='" + restaurant_id + "' type='submit' class='ui button'>Add Item</button></div>");
 
-            // $(itemListContainer).append(itemEls);
-
-
             $('#main-content').append($(itemListContainer));
-
 
             $('div[data-attr="list-area"]').append(itemEls);
             $('div[data-attr="list-area"]').append($button);
@@ -450,7 +362,7 @@ function showRestaurant(restaurant_id) {
             var $draggable = $('.draggable').draggabilly({
                 axis: 'y',
                 containment: $('div[data-attr="list-area"]'),
-            })
+            });
         });
 
     });
@@ -517,7 +429,6 @@ function setMenuActiveState(section) {
             break;
     }
 }
-
 
 var router = Router(routes);
 
