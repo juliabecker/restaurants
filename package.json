@@ -1,6 +1,7 @@
 {
   "name": "restaurant_group",
   "version": "0.0.0",
+  "main": "public/app.js",
   "license": "ISC",
   "dependencies": {
     "bower": "^1.4.1",
