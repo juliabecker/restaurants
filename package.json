@@ -6,5 +6,8 @@
   "dependencies": {
     "bower": "^1.4.1",
     "json-server": "^0.7.2"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install"
   }
 }
