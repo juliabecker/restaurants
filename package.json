@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "ISC",
   "dependencies": {
+    "bower": "^1.4.1",
     "json-server": "^0.7.2"
   }
 }
